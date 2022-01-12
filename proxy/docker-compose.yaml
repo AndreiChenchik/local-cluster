@@ -1,0 +1,29 @@
+version: '3'
+
+networks:
+  proxy:
+    name: proxy
+
+services:
+  traefik:
+    image: traefik:v2.5
+    command: 
+      - --api.insecure=true
+      - --entrypoints.web.address=:80
+      - --entrypoints.web-secure.address=:443
+      - --entrypoints.web.http.redirections.entryPoint.to=web-secure
+      - --entrypoints.web.http.redirections.entryPoint.scheme=https
+      - --entrypoints.web.http.redirections.entrypoint.permanent=true
+      - --providers.docker
+      - --providers.file.directory=/config/
+      - --providers.file.watch=true
+    ports:
+      - "80:80"
+      - "443:443"
+      - "8080:8080"
+    volumes:
+      - ~/.certs:/cert
+      - ./traefik.yaml:/config/traefik.yaml
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - proxy
