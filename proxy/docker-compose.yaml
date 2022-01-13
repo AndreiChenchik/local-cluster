@@ -8,22 +8,34 @@ services:
   traefik:
     image: traefik:v2.5
     command: 
-      - --api.insecure=true
+      - --api
+      - --accesslog
       - --entrypoints.web.address=:80
-      - --entrypoints.web-secure.address=:443
       - --entrypoints.web.http.redirections.entryPoint.to=web-secure
       - --entrypoints.web.http.redirections.entryPoint.scheme=https
       - --entrypoints.web.http.redirections.entrypoint.permanent=true
+      - --entrypoints.web-secure.address=:443
+      - --entrypoints.debug.address=:3000
+      - --entrypoints.postgres.address=:5432
       - --providers.docker
+      - --providers.docker.exposedByDefault=false
       - --providers.file.directory=/config/
       - --providers.file.watch=true
+      - --ping
     ports:
       - "80:80"
       - "443:443"
-      - "8080:8080"
+      - "3000:3000"
+      - "5432:5432"
     volumes:
       - ~/.certs:/cert
       - ./traefik.yaml:/config/traefik.yaml
       - /var/run/docker.sock:/var/run/docker.sock
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.traefik_https.rule=Host(`traefik.docker.lol`)
+      - traefik.http.routers.traefik_https.service=api@internal
+      - traefik.http.routers.traefik_https.tls=true
+      - traefik.http.routers.traefik_https.entrypoints=web,web-secure
     networks:
       - proxy
