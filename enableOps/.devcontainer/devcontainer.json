@@ -1,0 +1,46 @@
+{
+  "name": "enableops-web",
+  "dockerComposeFile": "docker-compose.yml",
+  "service": "web",
+  "workspaceFolder": "/workspace",
+  "settings": {
+    "sqltools.connections": [
+      {
+        "name": "Container database",
+        "driver": "PostgreSQL",
+        "previewLimit": 50,
+        "server": "localhost",
+        "port": 5432,
+        "database": "postgres",
+        "username": "postgres",
+        "password": "postgres"
+      }
+    ],
+    "python.defaultInterpreterPath": "/usr/local/bin/python",
+    "editor.formatOnSave": true,
+    "python.formatting.provider": "black",
+    "python.formatting.blackPath": "black",
+    "python.linting.enabled": true,
+    "python.linting.lintOnSave": true,
+    "python.linting.pylintEnabled": false,
+    "python.linting.flake8Enabled": true,
+    "python.linting.flake8Path": "flake8",
+    "python.linting.mypyEnabled": true,
+    "python.linting.mypyPath": "mypy"
+  },
+  "extensions": [
+    "ms-python.python",
+    "ms-python.vscode-pylance",
+    "dbaeumer.vscode-eslint",
+    "mtxr.sqltools",
+    "mtxr.sqltools-driver-pg"
+  ],
+  "remoteUser": "vscode",
+  "features": {
+    "docker-from-docker": "latest",
+    "kubectl-helm-minikube": "latest",
+    "terraform": "latest",
+    "github-cli": "latest"
+  },
+  "postCreateCommand": "poetry config virtualenvs.create false && poetry install --no-interaction && read -p '1Password sign in address: ' host; read -p '1Password email address: ' email; op signin $host $email"
+}
