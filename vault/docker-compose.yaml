@@ -1,0 +1,29 @@
+version: "3.8"
+
+networks:
+  proxy:
+    external: true
+    name: proxy
+
+services:
+  vault:
+    image: vault:latest
+    cap_add:
+      - IPC_LOCK
+    command:
+      - server
+    volumes:
+      - ./config.hcl:/vault/config/config.hcl
+      - ~/.vault-server/data:/vault/data
+      - ~/.vault-server/logs:/vault/logs
+      - ~/.certs/vault-cert.pem:/vault/config/vault-cert.pem
+      - ~/.certs/vault-key.pem:/vault/config/vault-key.pem
+    labels:
+      - traefik.enable=true
+      - traefik.tcp.routers.vault.rule=HostSNI(`vault.docker.lol`)
+      - traefik.tcp.routers.vault.tls.passthrough=true
+      - traefik.tcp.routers.vault.entrypoints=web-secure
+      - traefik.tcp.services.vault.loadbalancer.server.port=8200
+
+    networks:
+      - proxy
