@@ -1,0 +1,170 @@
+version: '3'
+
+
+volumes:
+  postgres_DONOTDELETE: null
+  enableops_DONOTDELETE: null
+  vault_DONOTDELETE: null
+  vault_unseal: null
+  taskmarathon_DONOTDELETE: null
+
+
+services:
+  traefik:
+    container_name: traefik
+    image: traefik:v2.5
+    
+    command: 
+      - --api
+      - --accesslog
+      - --entrypoints.web.address=:80
+      - --entrypoints.web.http.redirections.entryPoint.to=web-secure
+      - --entrypoints.web.http.redirections.entryPoint.scheme=https
+      - --entrypoints.web.http.redirections.entrypoint.permanent=true
+      - --entrypoints.web-secure.address=:443
+      - --entrypoints.debug.address=:3000
+      - --entrypoints.postgres.address=:5432
+      - --providers.docker
+      - --providers.docker.exposedByDefault=false
+      - --providers.file.directory=/config/
+      - --providers.file.watch=true
+      - --ping
+    
+    ports:
+      - "80:80"
+      - "443:443"
+      - "3000:3000"
+      - "5432:5432"
+    
+    volumes:
+      - ~/.certs:/cert
+      - ./traefik.yaml:/config/traefik.yaml
+      - /var/run/docker.sock:/var/run/docker.sock
+    
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.traefik_https.rule=Host(`proxy.dkr.casa`)
+      - traefik.http.routers.traefik_https.service=api@internal
+      - traefik.http.routers.traefik_https.tls=true
+      - traefik.http.routers.traefik_https.entrypoints=web,web-secure
+
+
+  enableops:
+    container_name: enableops
+    
+    build:
+      context: .
+
+    volumes:
+      - enableops_DONOTDELETE:/workspace
+      # - ~/.kube:/home/vscode/.kube:cached
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ~/env-injector:/home/vscode/env-injector:cached
+      - ~/.scripts/1penv.sh:/home/vscode/1penv.sh:cached
+      - ~/.config/op/config:/home/vscode/.config/op/config
+    
+    command: sleep infinity
+
+    network_mode: service:postgres
+
+
+  taskmarathon:
+    container_name: taskmarathon
+    
+    build:
+      context: .
+
+    volumes:
+      - taskmarathon_DONOTDELETE:/workspace
+      # - ~/.kube:/home/vscode/.kube:cached
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ~/env-injector:/home/vscode/env-injector:cached
+      - ~/.scripts/1penv.sh:/home/vscode/1penv.sh:cached
+      - ~/.config/op/config:/home/vscode/.config/op/config
+    
+    command: sleep infinity
+
+    network_mode: service:postgres
+
+
+  postgres:
+    container_name: postgres
+    image: postgres:latest
+
+    restart: unless-stopped
+
+    volumes:
+      - postgres_DONOTDELETE:/var/lib/postgresql/data
+
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_DB: postgres
+      POSTGRES_PASSWORD: postgres
+
+    labels:
+      - traefik.enable=true
+
+      - traefik.http.routers.enableops-api.rule=Host(`loc-api.eops.casa`)
+      - traefik.http.routers.enableops-api.entrypoints=web,web-secure
+      - traefik.http.routers.enableops-api.tls=true
+      - traefik.http.routers.enableops-api.service=enableops-api
+      - traefik.http.services.enableops-api.loadbalancer.server.port=8000
+
+      - traefik.tcp.routers.enableops-db.rule=HostSNI(`*`)
+      - traefik.tcp.routers.enableops-db.entrypoints=postgres
+      - traefik.tcp.services.enableops-db.loadbalancer.server.port=5432
+
+      - traefik.http.routers.enableops-website.rule=Host(`loc-web.eops.casa`)
+      - traefik.http.routers.enableops-website.tls=true
+      - traefik.http.routers.enableops-website.entrypoints=web,web-secure,debug
+      - traefik.http.routers.enableops-website.service=enableops-website
+      - traefik.http.services.enableops-website.loadbalancer.server.port=3000
+
+      - traefik.http.routers.taskmarathon.rule=Host(`tasks.dkr.casa`)
+      - traefik.http.routers.taskmarathon.tls=true
+      - traefik.http.routers.taskmarathon.entrypoints=web,web-secure
+      - traefik.http.routers.taskmarathon.service=taskmarathon
+      - traefik.http.services.taskmarathon.loadbalancer.server.port=8899
+
+
+  vault:
+    container_name: vault
+    image: vault:latest
+    
+    cap_add:
+      - IPC_LOCK
+    
+    # command: sleep infinity
+    command: server -config=/etc/vault.hcl
+    
+    volumes:
+      - ./vault.hcl:/etc/vault.hcl
+      - vault_DONOTDELETE:/vault
+      - ~/.certs/vault-cert.pem:/vault/config/vault-cert.pem
+      - ~/.certs/vault-key.pem:/vault/config/vault-key.pem
+    
+    labels:
+      - traefik.enable=true
+      - traefik.tcp.routers.vault.rule=HostSNI(`vault.dkr.casa`)
+      - traefik.tcp.routers.vault.tls.passthrough=true
+      - traefik.tcp.routers.vault.entrypoints=web-secure
+      - traefik.tcp.services.vault.loadbalancer.server.port=8200
+
+
+  pgadmin:
+    container_name: pgadmin
+    image: dpage/pgadmin4
+    
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=andrei@chenchik.me
+      - PGADMIN_DEFAULT_PASSWORD=${PGADMIN_DEFAULT_PASSWORD}
+      - PGADMIN_LISTEN_PORT=8888
+    
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.pgadmin.rule=Host(`postgres.dkr.casa`)
+      - traefik.http.routers.pgadmin.tls=true
+      - traefik.http.routers.pgadmin.entrypoints=web,web-secure,debug
+      - traefik.http.services.pgadmin.loadbalancer.server.port=8888
+    
+    network_mode: service:postgres

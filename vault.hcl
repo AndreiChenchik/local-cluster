@@ -9,6 +9,6 @@ listener "tcp" {
   tls_key_file  = "/vault/config/vault-key.pem"
 }
 
-api_addr = "https://vault.docker.lol"
+api_addr = "https://vault.dkr.casa"
 cluster_addr = "https://127.0.0.1:8201"
 ui = true
