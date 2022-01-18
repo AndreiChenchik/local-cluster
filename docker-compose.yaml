@@ -5,8 +5,8 @@ volumes:
   postgres_DONOTDELETE: null
   enableops_DONOTDELETE: null
   vault_DONOTDELETE: null
-  vault_unseal: null
   taskmarathon_DONOTDELETE: null
+  traefik_certs: null
 
 
 services:
@@ -29,6 +29,9 @@ services:
       - --providers.file.directory=/config/
       - --providers.file.watch=true
       - --ping
+      - --certificatesresolvers.letsencrypt.acme.tlschallenge=true
+      - --certificatesresolvers.letsencrypt.acme.email=andrei@chenchik.me
+      - --certificatesresolvers.letsencrypt.acme.storage=/letsencrypt/acme.json"
     
     ports:
       - "80:80"
@@ -37,18 +40,17 @@ services:
       - "5432:5432"
     
     volumes:
-      - ~/.certs:/cert
-      - ./traefik.yaml:/config/traefik.yaml
+      - traefik_certs:/letsencrypt
       - /var/run/docker.sock:/var/run/docker.sock
     
     labels:
       - traefik.enable=true
-      - traefik.http.routers.traefik_https.rule=Host(`proxy.dkr.casa`)
+      - traefik.http.routers.traefik_https.rule=Host(`traefik.casa.chenchik.me`)
       - traefik.http.routers.traefik_https.service=api@internal
-      - traefik.http.routers.traefik_https.tls=true
+      - traefik.http.routers.traefik_https.tls.certresolver=letsencrypt
       - traefik.http.routers.traefik_https.entrypoints=web,web-secure
-
-
+  
+  
   enableops:
     container_name: enableops
     
@@ -104,9 +106,9 @@ services:
     labels:
       - traefik.enable=true
 
-      - traefik.http.routers.enableops-api.rule=Host(`loc-api.eops.casa`)
+      - traefik.http.routers.enableops-api.rule=Host(`eops-api.casa.chenchik.me`)
       - traefik.http.routers.enableops-api.entrypoints=web,web-secure
-      - traefik.http.routers.enableops-api.tls=true
+      - traefik.http.routers.enableops-api.tls.certresolver=letsencrypt
       - traefik.http.routers.enableops-api.service=enableops-api
       - traefik.http.services.enableops-api.loadbalancer.server.port=8000
 
@@ -114,14 +116,14 @@ services:
       - traefik.tcp.routers.enableops-db.entrypoints=postgres
       - traefik.tcp.services.enableops-db.loadbalancer.server.port=5432
 
-      - traefik.http.routers.enableops-website.rule=Host(`loc-web.eops.casa`)
-      - traefik.http.routers.enableops-website.tls=true
+      - traefik.http.routers.enableops-website.rule=Host(`eops-web.casa.chenchik.me`)
+      - traefik.http.routers.enableops-website.tls.certresolver=letsencrypt
       - traefik.http.routers.enableops-website.entrypoints=web,web-secure,debug
       - traefik.http.routers.enableops-website.service=enableops-website
       - traefik.http.services.enableops-website.loadbalancer.server.port=3000
 
-      - traefik.http.routers.taskmarathon.rule=Host(`tasks.dkr.casa`)
-      - traefik.http.routers.taskmarathon.tls=true
+      - traefik.http.routers.taskmarathon.rule=Host(`tasks.casa.chenchik.me`)
+      - traefik.http.routers.taskmarathon.tls.certresolver=letsencrypt
       - traefik.http.routers.taskmarathon.entrypoints=web,web-secure
       - traefik.http.routers.taskmarathon.service=taskmarathon
       - traefik.http.services.taskmarathon.loadbalancer.server.port=8899
@@ -140,15 +142,13 @@ services:
     volumes:
       - ./vault.hcl:/etc/vault.hcl
       - vault_DONOTDELETE:/vault
-      - ~/.certs/vault-cert.pem:/vault/config/vault-cert.pem
-      - ~/.certs/vault-key.pem:/vault/config/vault-key.pem
     
     labels:
       - traefik.enable=true
-      - traefik.tcp.routers.vault.rule=HostSNI(`vault.dkr.casa`)
-      - traefik.tcp.routers.vault.tls.passthrough=true
-      - traefik.tcp.routers.vault.entrypoints=web-secure
-      - traefik.tcp.services.vault.loadbalancer.server.port=8200
+      - traefik.http.routers.vault.rule=Host(`vault.casa.chenchik.me`)
+      - traefik.http.routers.vault.tls.certresolver=letsencrypt
+      - traefik.http.routers.vault.entrypoints=web,web-secure
+      - traefik.http.services.vault.loadbalancer.server.port=8200
 
 
   pgadmin:
@@ -162,8 +162,8 @@ services:
     
     labels:
       - traefik.enable=true
-      - traefik.http.routers.pgadmin.rule=Host(`postgres.dkr.casa`)
-      - traefik.http.routers.pgadmin.tls=true
+      - traefik.http.routers.pgadmin.rule=Host(`postgres.casa.chenchik.me`)
+      - traefik.http.routers.pgadmin.tls.certresolver=letsencrypt
       - traefik.http.routers.pgadmin.entrypoints=web,web-secure,debug
       - traefik.http.services.pgadmin.loadbalancer.server.port=8888
     

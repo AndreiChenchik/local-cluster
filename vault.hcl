@@ -5,10 +5,9 @@ storage "raft" {
 
 listener "tcp" {
   address     = "0.0.0.0:8200"
-  tls_cert_file = "/vault/config/vault-cert.pem"
-  tls_key_file  = "/vault/config/vault-key.pem"
+  tls_disable = "true"
 }
 
-api_addr = "https://vault.dkr.casa"
+api_addr = "https://vault.casa.chenchik.me"
 cluster_addr = "https://127.0.0.1:8201"
 ui = true
