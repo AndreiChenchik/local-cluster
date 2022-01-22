@@ -8,12 +8,16 @@ if [ "$ARGOPASS" = "" ]; then
 fi
 
 if [ "$1"="reset" ]; then
-	echo "\nRemoving existing argocd namespace"
+	echo "\nRemoving existing ArgoCDs namespaces"
 	kubectl delete namespace argocd
+	kubectl delete namespace argocd-apps
 fi
 
-echo "\nApplying ArgoCD to argocd namespace"
+echo "\nCreating ArgoCDs namespaces"
 kubectl create namespace argocd
+kubectl create namespace argocd-apps
+
+echo "\nApplying ArgoCD to argocd namespace"
 kubectl apply -n argocd \
 	-f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
 
@@ -28,6 +32,20 @@ argocd account update-password --account admin --current-password $random_passwo
 
 echo "\nCleaning argocd-initial-admin-secret"
 kubectl -n argocd delete secret argocd-initial-admin-secret
+
+
+if [ "$GCRJSONAUTH" = "" ]; then
+	echo "\nGCRJSONAUTH env not provided, skipping GCR auth"
+else
+	echo "\nConfiguring auth for eu.gcr.io"
+
+	kubectl -n argocd-apps create secret docker-registry eu-gcr-io \
+		--docker-server=eu.gcr.io \
+		--docker-username=_json_key \
+		--docker-password="$GCRJSONAUTH" \
+		--docker-email=andrei@chenchik.me
+fi
+
 
 echo "\nApplying root application"
 kubectl apply \
