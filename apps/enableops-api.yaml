@@ -14,10 +14,12 @@ spec:
         app: enableops-api
     spec:
       containers:
-      - image: eu.gcr.io/enableops-io/api:0.6.38
+      - image: eu.gcr.io/enableops-io/api:sha-08090ad
         name: enableops-api
         ports:
         - containerPort: 8000
+      imagePullSecrets:
+        - name: eu-gcr-io
 ---
 apiVersion: v1
 kind: Service
