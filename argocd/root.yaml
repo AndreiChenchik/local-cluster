@@ -16,7 +16,6 @@ spec:
      selfHeal: true
    syncOptions:
      - Validate=true
-     - CreateNamespace=true
  destination:
    server: https://kubernetes.default.svc
    namespace: argocd-apps
