@@ -32,7 +32,7 @@ services:
       - --certificatesresolvers.letsencrypt.acme.tlschallenge=true
       - --certificatesresolvers.letsencrypt.acme.email=andrei@chenchik.me
       - --certificatesresolvers.letsencrypt.acme.storage=/letsencrypt/acme.json"
-    
+
     ports:
       - "80:80"
       - "443:443"
