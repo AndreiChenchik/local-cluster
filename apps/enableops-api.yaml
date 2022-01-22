@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: enableops-api
+spec:
+  replicas: 1
+  revisionHistoryLimit: 2
+  selector:
+    matchLabels:
+      app: enableops-api
+  template:
+    metadata:
+      labels:
+        app: enableops-api
+    spec:
+      containers:
+      - image: eu.gcr.io/enableops-io/api:0.6.37
+        name: enableops-api
+        ports:
+        - containerPort: 8000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: enableops-api
+spec:
+  ports:
+  - port: 8889
+    targetPort: 8000
+  selector:
+    app: enableops-api
