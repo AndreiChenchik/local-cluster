@@ -7,7 +7,7 @@ metadata:
 spec:
  project: default
  source:
-   repoURL: git@github.com:AndreiChenchik/dev-cluster.git
+   repoURL: https://github.com/AndreiChenchik/dev-cluster
    path: apps
    targetRevision: HEAD
  syncPolicy:
@@ -18,4 +18,5 @@ spec:
      - Validate=true
      - CreateNamespace=true
  destination:
+   server: https://kubernetes.default.svc
    namespace: argocd-apps
