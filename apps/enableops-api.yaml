@@ -14,7 +14,7 @@ spec:
         app: enableops-api
     spec:
       containers:
-      - image: eu.gcr.io/enableops-io/api:0.6.37
+      - image: eu.gcr.io/enableops-io/api:0.6.38
         name: enableops-api
         ports:
         - containerPort: 8000
