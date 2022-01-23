@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: enableops-api-chart
+  name: enableops-api
   namespace: argocd
 
 spec:
@@ -23,3 +23,17 @@ spec:
     repoURL: https://github.com/AndreiChenchik/dev-cluster
     path: charts/python-app
     targetRevision: HEAD
+    helm:
+      parameters:
+      - name: name
+        value: "enableops-io"
+      - name: host
+        value: "api.local"
+      - name: targetPort
+        value: "8000"
+      - name: image
+        value: "eu.gcr.io/enableops-io/api:0.6.40"
+      - name: pullSecret
+        value: "eu-gcr-io"
+      - name: envSecret
+        value: "enableops-api-env"
