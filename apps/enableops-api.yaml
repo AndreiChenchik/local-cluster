@@ -14,10 +14,46 @@ spec:
         app: enableops-api
     spec:
       containers:
-      - image: eu.gcr.io/enableops-io/api:sha-08090ad
+      - image: eu.gcr.io/enableops-io/api:0.6.39
         name: enableops-api
         ports:
         - containerPort: 8000
+        env:
+          - name: API_SENTRY_DSN
+            valueFrom:
+              secretKeyRef:
+                name: enableops-api-env
+                key: API_SENTRY_DSN
+          - name: API_SECURITY__SESSION_SIGN_KEY
+            valueFrom:
+              secretKeyRef:
+                name: enableops-api-env
+                key: API_SECURITY__SESSION_SIGN_KEY
+          - name: API_SECURITY__DB_CRYPTO_KEY
+            valueFrom:
+              secretKeyRef:
+                name: enableops-api-env
+                key: API_SECURITY__DB_CRYPTO_KEY
+          - name: API_OAUTH__CLIENT_ID
+            valueFrom:
+              secretKeyRef:
+                name: enableops-api-env
+                key: API_OAUTH__CLIENT_ID
+          - name: API_OAUTH__CLIENT_SECRET
+            valueFrom:
+              secretKeyRef:
+                name: enableops-api-env
+                key: API_OAUTH__CLIENT_SECRET
+          - name: API_GITHUB__TOKEN
+            valueFrom:
+              secretKeyRef:
+                name: enableops-api-env
+                key: API_GITHUB__TOKEN
+          - name: API_DB__HEROKU_API_KEY
+            valueFrom:
+              secretKeyRef:
+                name: enableops-api-env
+                key: API_DB__HEROKU_API_KEY
       imagePullSecrets:
         - name: eu-gcr-io
 ---
