@@ -22,13 +22,3 @@ spec:
     repoURL: https://github.com/AndreiChenchik/dev-cluster
     path: charts/python-app
     targetRevision: HEAD
-    helm:
-      values: |
-        name: enableops-io
-        host: api.local
-        targetPort: 8000
-        image: eu.gcr.io/enableops-io/api:0.6.40
-        pullSecret: eu-gcr-io
-        envSecret: enableops-api-env
-
-
