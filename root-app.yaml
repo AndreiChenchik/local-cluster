@@ -4,11 +4,6 @@ metadata:
  name: root
  namespace: argocd
 spec:
- project: default
- source:
-   repoURL: https://github.com/AndreiChenchik/dev-cluster
-   path: apps
-   targetRevision: HEAD
  syncPolicy:
    automated:
      prune: true
@@ -18,3 +13,8 @@ spec:
  destination:
    server: https://kubernetes.default.svc
    namespace: argocd-apps
+ project: default
+ source:
+   repoURL: https://github.com/AndreiChenchik/dev-cluster
+   path: apps
+   targetRevision: HEAD
