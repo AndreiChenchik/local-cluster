@@ -29,8 +29,8 @@ kind: Service
 metadata:
   name: enableops-api
 spec:
+  type: NodePort
   ports:
-  - port: 8889
-    targetPort: 8000
+  - port: 8000
   selector:
     app: enableops-api
