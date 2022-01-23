@@ -1,57 +1,27 @@
-apiVersion: apps/v1
-kind: Deployment
+apiVersion: argoproj.io/v1alpha1
+kind: Application
 metadata:
   name: enableops-api
 spec:
-  replicas: 1
-  revisionHistoryLimit: 2
-  selector:
-    matchLabels:
-      app: enableops-api
-  template:
-    metadata:
-      labels:
-        app: enableops-api
-    spec:
-      containers:
-      - image: eu.gcr.io/enableops-io/api:0.6.40
-        name: enableops-api
-        ports:
-        - containerPort: 8000
-        envFrom:
-        - secretRef:
-            name: enableops-api-env
-      imagePullSecrets:
-        - name: eu-gcr-io
-
----
-
-apiVersion: v1
-kind: Service
-metadata:
-  name: enableops-api
-spec:
-  ports:
-  - port: 80
-    targetPort: 8000
-  selector:
-    app: enableops-api
-
----
-
-apiVersion: networking.k8s.io/v1
-kind: Ingress 
-metadata:
-  name: enableops-api
-spec:
-  rules:
-  - host: api.local
-    http:
-      paths:
-      - pathType: Prefix
-        path: "/"
-        backend:
-          service:
-            name:  enableops-api
-            port: 
-              number: 80
+  project: default
+  source:
+    repoURL: https://github.com/AndreiChenchik/dev-cluster
+    path: charts/python
+    targetRevision: HEAD
+    helm:
+      parameters:
+      - name: name
+        value: enableops-api
+      - name: targetPort
+        value: 8000
+      - name: host
+        value: api.local
+      - name: pullSecret
+        value: eu-gcr-io
+      - name: image
+        value: eu.gcr.io/enableops-io/api:0.6.40
+      - name: envSecret
+        value: enableops-api-env
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: argocd-apps
