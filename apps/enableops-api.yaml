@@ -20,7 +20,7 @@ spec:
         - containerPort: 8000
         envFrom:
         - secretRef:
-          name: enableops-api-env
+            name: enableops-api-env
       imagePullSecrets:
         - name: eu-gcr-io
 ---
