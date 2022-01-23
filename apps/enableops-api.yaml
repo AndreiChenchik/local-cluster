@@ -6,7 +6,7 @@ spec:
   project: default
   source:
     repoURL: https://github.com/AndreiChenchik/dev-cluster
-    path: charts/python
+    path: charts/python-app
     targetRevision: HEAD
     helm:
       parameters:
