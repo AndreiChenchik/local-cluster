@@ -48,7 +48,9 @@ spec:
   - host: api.local
     http:
       paths:
-      - backend:
+      - pathType: Prefix
+        path: "/"
+        backend:
           service:
             name:  enableops-api
             port: 
