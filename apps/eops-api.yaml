@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: enableops-api
+  name: eops-api
   namespace: argocd
 
 spec:
@@ -23,10 +23,11 @@ spec:
     repoURL: https://github.com/AndreiChenchik/dev-cluster
     path: charts/python-app
     targetRevision: HEAD
+    
     helm:
       parameters:
       - name: name
-        value: "enableops-io"
+        value: "eops-api"
       - name: host
         value: "api.local"
       - name: targetPort
