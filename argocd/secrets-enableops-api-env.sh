@@ -11,4 +11,6 @@ kubectl -n argocd-apps create secret generic enableops-api-env \
 	--from-literal=API_OAUTH__CLIENT_ID=$API_OAUTH__CLIENT_ID \
 	--from-literal=API_OAUTH__CLIENT_SECRET=$API_OAUTH__CLIENT_SECRET \
 	--from-literal=API_GITHUB__TOKEN=$API_GITHUB__TOKEN \
-	--from-literal=API_DB__HEROKU_API_KEY=$API_DB__HEROKU_API_KEY
+	--from-literal=API_DB__HEROKU_API_KEY=$API_DB__HEROKU_API_KEY \
+	--from-literal=API_ENV_STATE=$API_ENV_STATE
+
