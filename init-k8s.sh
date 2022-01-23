@@ -46,9 +46,13 @@ else
 		--docker-email=andrei@chenchik.me
 fi
 
+echo "\nInstalling traefik ingress controller"
+helm repo add traefik https://helm.traefik.io/traefik
+helm repo update
+helm install traefik traefik/traefik
 
 echo "\nApplying root application"
 kubectl apply \
-	-f root.yaml
+	-f root-app.yaml
 
 echo "\nDone!"
