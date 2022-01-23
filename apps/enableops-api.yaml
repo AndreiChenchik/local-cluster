@@ -23,15 +23,33 @@ spec:
             name: enableops-api-env
       imagePullSecrets:
         - name: eu-gcr-io
+
 ---
+
 apiVersion: v1
 kind: Service
 metadata:
   name: enableops-api
 spec:
-  type: LoadBalancer
   ports:
-  - port: 8889
+  - port: 80
     targetPort: 8000
   selector:
     app: enableops-api
+
+---
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress 
+metadata:
+  name: enableops-api
+spec:
+  rules:
+  - host: api.local
+    http:
+      paths:
+      - backend:
+          service:
+            name:  enableops-api
+            port: 
+              number: 80
