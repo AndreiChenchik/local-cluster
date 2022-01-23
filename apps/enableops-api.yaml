@@ -9,19 +9,13 @@ spec:
     path: charts/python-app
     targetRevision: HEAD
     helm:
-      parameters:
-      - name: "name"
-        value: "enableops-api"
-      - name: "targetPort"
-        value: "8000"
-      - name: "host"
-        value: "api.local"
-      - name: "pullSecret"
-        value: "eu-gcr-io"
-      - name: "image"
-        value: "eu.gcr.io/enableops-io/api:0.6.40"
-      - name: "envSecret"
-        value: "enableops-api-env"
+      values: |
+        name: enableops-io
+        host: api.local
+        targetPort: 8000
+        image: eu.gcr.io/enableops-io/api:0.6.40
+        pullSecret: eu-gcr-io
+        envSecret: enableops-api-env
   destination:
     server: https://kubernetes.default.svc
     namespace: argocd-apps
