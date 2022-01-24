@@ -1,16 +1,22 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: eops-api
   namespace: argocd
+  
+  name: eops-api
+  
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+  
+  annotations:
+    argocd.argoproj.io/sync-wave: "2"
 
 spec:
-  
   project: default
   
   destination:
     server: https://kubernetes.default.svc
-    namespace: argocd-apps
+    namespace: eops-api
   
   syncPolicy:
     automated:
@@ -18,6 +24,7 @@ spec:
       selfHeal: true
     syncOptions:
       - Validate=true
+      - CreateNamespace=true
 
   source:
     repoURL: https://github.com/AndreiChenchik/dev-cluster
