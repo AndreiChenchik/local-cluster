@@ -1,5 +1,4 @@
-version: '3'
-
+version: "3"
 
 volumes:
   postgres_DONOTDELETE: null
@@ -8,20 +7,19 @@ volumes:
   taskmarathon_DONOTDELETE: null
   traefik_certs: null
 
-
 services:
   traefik:
     container_name: traefik
     image: traefik:v2.5
-    
-    command: 
+
+    command:
       - --api
       - --accesslog
-      - --entrypoints.web.address=:80
+      - --entrypoints.web.address=:81
       - --entrypoints.web.http.redirections.entryPoint.to=web-secure
       - --entrypoints.web.http.redirections.entryPoint.scheme=https
       - --entrypoints.web.http.redirections.entrypoint.permanent=true
-      - --entrypoints.web-secure.address=:443
+      - --entrypoints.web-secure.address=:444
       - --entrypoints.debug.address=:3000
       - --entrypoints.postgres.address=:5432
       - --providers.docker
@@ -34,26 +32,25 @@ services:
       - --certificatesresolvers.letsencrypt.acme.storage=/letsencrypt/acme.json"
 
     ports:
-      - "80:80"
-      - "443:443"
+      - "81:81"
+      - "444:444"
       - "3000:3000"
       - "5432:5432"
-    
+
     volumes:
       - traefik_certs:/letsencrypt
       - /var/run/docker.sock:/var/run/docker.sock
-    
+
     labels:
       - traefik.enable=true
       - traefik.http.routers.traefik_https.rule=Host(`traefik.casa.chenchik.me`)
       - traefik.http.routers.traefik_https.service=api@internal
       - traefik.http.routers.traefik_https.tls.certresolver=letsencrypt
       - traefik.http.routers.traefik_https.entrypoints=web,web-secure
-  
-  
+
   enableops:
     container_name: enableops
-    
+
     build:
       context: .
 
@@ -64,15 +61,14 @@ services:
       - ~/env-injector:/home/vscode/env-injector:cached
       - ~/.scripts/1penv.sh:/home/vscode/1penv.sh:cached
       - ~/.config/op/config:/home/vscode/.config/op/config
-    
+
     command: sleep infinity
 
     network_mode: service:postgres
 
-
   taskmarathon:
     container_name: taskmarathon
-    
+
     build:
       context: .
 
@@ -83,11 +79,10 @@ services:
       - ~/env-injector:/home/vscode/env-injector:cached
       - ~/.scripts/1penv.sh:/home/vscode/1penv.sh:cached
       - ~/.config/op/config:/home/vscode/.config/op/config
-    
+
     command: sleep infinity
 
     network_mode: service:postgres
-
 
   postgres:
     container_name: postgres
@@ -128,21 +123,20 @@ services:
       - traefik.http.routers.taskmarathon.service=taskmarathon
       - traefik.http.services.taskmarathon.loadbalancer.server.port=8899
 
-
   vault:
     container_name: vault
     image: vault:latest
-    
+
     cap_add:
       - IPC_LOCK
-    
+
     # command: sleep infinity
     command: server -config=/etc/vault.hcl
-    
+
     volumes:
       - ./vault.hcl:/etc/vault.hcl
       - vault_DONOTDELETE:/vault
-    
+
     labels:
       - traefik.enable=true
       - traefik.http.routers.vault.rule=Host(`vault.casa.chenchik.me`)
@@ -150,21 +144,20 @@ services:
       - traefik.http.routers.vault.entrypoints=web,web-secure
       - traefik.http.services.vault.loadbalancer.server.port=8200
 
-
   pgadmin:
     container_name: pgadmin
     image: dpage/pgadmin4
-    
+
     environment:
       - PGADMIN_DEFAULT_EMAIL=andrei@chenchik.me
       - PGADMIN_DEFAULT_PASSWORD=${PGADMIN_DEFAULT_PASSWORD}
       - PGADMIN_LISTEN_PORT=8888
-    
+
     labels:
       - traefik.enable=true
       - traefik.http.routers.pgadmin.rule=Host(`postgres.casa.chenchik.me`)
       - traefik.http.routers.pgadmin.tls.certresolver=letsencrypt
       - traefik.http.routers.pgadmin.entrypoints=web,web-secure,debug
       - traefik.http.services.pgadmin.loadbalancer.server.port=8888
-    
+
     network_mode: service:postgres
