@@ -17,4 +17,5 @@ kubectl --context gke_enableops-infra_us-central1-f_outpost \
 	--from-literal=API_OAUTH__CLIENT_SECRET=$API_OAUTH__CLIENT_SECRET \
 	--from-literal=API_GITHUB__TOKEN=$API_GITHUB__TOKEN \
 	--from-literal=API_DB__HEROKU_API_KEY=$API_DB__HEROKU_API_KEY \
-	--from-literal=API_ENV_STATE=$API_ENV_STATE
+	--from-literal=API_ENV_STATE=$API_ENV_STATE \
+	--from-literal=API_SECURITY__TERRAFORM_SECRET=$API_SECURITY__TERRAFORM_SECRET
