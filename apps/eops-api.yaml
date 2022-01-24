@@ -44,4 +44,4 @@ spec:
       - name: pullSecret
         value: "eu-gcr-io"
       - name: envSecret
-        value: "enableops-api-env"
+        value: "python-env"

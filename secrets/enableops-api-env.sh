@@ -2,9 +2,9 @@
 
 set -e 
 
-kubectl -n argocd-apps delete secret enableops-api-env || true
+kubectl -n eops-api delete secret python-env || true
 
-kubectl -n argocd-apps create secret generic enableops-api-env \
+kubectl -n eops-api create secret generic python-env \
 	--from-literal=API_SENTRY_DSN=$API_SENTRY_DSN \
 	--from-literal=API_SECURITY__SESSION_SIGN_KEY=$API_SECURITY__SESSION_SIGN_KEY \
 	--from-literal=API_SECURITY__DB_CRYPTO_KEY=$API_SECURITY__DB_CRYPTO_KEY \
