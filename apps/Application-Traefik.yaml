@@ -1,0 +1,57 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  namespace: argocd
+
+  name: traefik
+
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
+
+spec:
+  project: default
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: traefik
+
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - Validate=true
+      - CreateNamespace=true
+
+  source:
+    chart: traefik
+    repoURL: https://helm.traefik.io/traefik
+    targetRevision: 10.9.1
+    helm:
+      releaseName: traefik
+      parameters:
+        - name: additionalArguments[0]
+          value: "--accesslog=true"
+        - name: additionalArguments[1]
+          value: "--log.level=DEBUG"
+        - name: additionalArguments[2]
+          value: "--api=true"
+        - name: additionalArguments[3]
+          value: "--api.dashboard=true"
+        - name: additionalArguments[4]
+          value: "--certificatesresolvers.le=true"
+        - name: additionalArguments[5]
+          value: "--certificatesresolvers.acme-http.acme.httpchallenge=true"
+        - name: additionalArguments[6]
+          value: "--certificatesresolvers.acme-http.acme.httpchallenge.entrypoint=web"
+        - name: additionalArguments[7]
+          value: "--certificatesresolvers.acme-http.acme.storage=/data/acme.json"
+        - name: additionalArguments[8]
+          value: "--certificatesresolvers.acme-http.acme.caserver=https://acme-v02.api.letsencrypt.org/directory"
+        - name: additionalArguments[9]
+          value: "--certificatesresolvers.acme-http.acme.email=hello@enableops.io"
+        - name: service.type
+          value: "ClusterIP"
