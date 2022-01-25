@@ -10,7 +10,7 @@ spec:
 
   destination:
     server: https://kubernetes.default.svc
-    namespace: argocd-apps
+    namespace: default
 
   syncPolicy:
     automated:
