@@ -8,6 +8,10 @@ if [ "$GCRJSONAUTH" = "" ]; then
 fi
 
 kubectl --context gke_enableops-infra_us-central1-f_outpost \
+	create namespace enableops-api \
+	|| true
+
+kubectl --context gke_enableops-infra_us-central1-f_outpost \
 	-n enableops-api \
 	delete secret eu-gcr-puller \
 	|| true

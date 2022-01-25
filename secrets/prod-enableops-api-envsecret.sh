@@ -3,6 +3,10 @@
 set -e 
 
 kubectl --context gke_enableops-infra_us-central1-f_outpost \
+	create namespace enableops-api \
+	|| true
+
+kubectl --context gke_enableops-infra_us-central1-f_outpost \
 	-n enableops-api \
 	delete secret python-env \
 	|| true
