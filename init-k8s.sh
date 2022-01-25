@@ -15,8 +15,8 @@ helm install argocd argo/argo-cd -n argocd --create-namespace --wait --set 'serv
 random_password=$(kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d; echo)
 
 echo "\nAuthentificating and updating the password"
-argocd login --name local --username admin --password $random_password --port-forward-namespace argocd --port-forward
-argocd account update-password --account admin --current-password $random_password --new-password $ARGOPASS --port-forward-namespace argocd
+argocd login --name local --username admin --password $random_password --port-forward-namespace argocd --port-forward --insecure
+argocd account update-password --account admin --current-password $random_password --new-password $ARGOPASS --insecure --port-forward-namespace argocd
 
 echo "\nCleaning argocd-initial-admin-secret"
 kubectl -n argocd delete secret argocd-initial-admin-secret
