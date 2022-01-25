@@ -1,25 +1,25 @@
-apiVersion: traefik.containo.us/v1alpha1
-kind: IngressRoute
+# apiVersion: traefik.containo.us/v1alpha1
+# kind: IngressRoute
 
-metadata:
-  name: argocd
-  namespace: argocd
+# metadata:
+#   name: argocd
+#   namespace: argocd
 
-  annotations:
-    argocd.argoproj.io/sync-wave: "2"
+#   annotations:
+#     argocd.argoproj.io/sync-wave: "2"
 
-spec:
-  entryPoints:
-    - websecure
+# spec:
+#   entryPoints:
+#     - websecure
 
-  routes:
-    - kind: Rule
-      match: Host(`argocd.casa.chenchik.me`)
+#   routes:
+#     - kind: Rule
+#       match: Host(`argocd.casa.chenchik.me`)
 
-      services:
-        - name: argocd-server
-          namespace: argocd
-          port: 8080
+#       services:
+#         - name: argocd-server
+#           namespace: argocd
+#           port: 8080
 
-  tls:
-    certResolver: acme-http
+#   tls:
+#     certResolver: acme-http
