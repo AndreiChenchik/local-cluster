@@ -36,7 +36,7 @@ spec:
         - name: name
           value: "enableops-api"
         - name: host
-          value: "eops-web.casa.chenchik.me"
+          value: "eops-api.casa.chenchik.me"
         - name: targetPort
           value: "8000"
         - name: image
