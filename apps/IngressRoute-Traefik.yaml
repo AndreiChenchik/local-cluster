@@ -1,24 +1,24 @@
-# apiVersion: traefik.containo.us/v1alpha1
-# kind: IngressRoute
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
 
-# metadata:
-#   name: traefik-dashboard
-#   namespace: traefik
+metadata:
+  name: traefik-dashboard
+  namespace: traefik
 
-#   annotations:
-#     argocd.argoproj.io/sync-wave: "2"
+  annotations:
+    argocd.argoproj.io/sync-wave: "2"
 
-# spec:
-#   entryPoints:
-#     - websecure
+spec:
+  entryPoints:
+    - websecure
 
-#   routes:
-#     - match: Host(`traefik.casa.chenchik.me`)
-#       kind: Rule
+  routes:
+    - match: Host(`traefik.casa.chenchik.me`)
+      kind: Rule
 
-#       services:
-#         - name: api@internal
-#           kind: TraefikService
+      services:
+        - name: api@internal
+          kind: TraefikService
 
-#   tls:
-#     certResolver: acme-http
+  tls:
+    certResolver: acme-http
