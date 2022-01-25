@@ -53,5 +53,3 @@ spec:
           value: "--certificatesresolvers.acme-http.acme.caserver=https://acme-v02.api.letsencrypt.org/directory"
         - name: additionalArguments[9]
           value: "--certificatesresolvers.acme-http.acme.email=hello@enableops.io"
-        - name: service.type
-          value: "ClusterIP"
