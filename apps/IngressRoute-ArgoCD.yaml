@@ -2,7 +2,7 @@ apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 
 metadata:
-  name: argocd
+  name: argocd-dashboard
   namespace: argocd
 
   annotations:
@@ -18,7 +18,6 @@ spec:
 
       services:
         - name: argocd-server
-          namespace: argocd
           port: 8080
 
   tls:
