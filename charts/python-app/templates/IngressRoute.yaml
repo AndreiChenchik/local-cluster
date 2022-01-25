@@ -2,7 +2,7 @@ apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 
 metadata:
-  name: {{.Values.name}}
+  name: {{ .Values.name }}
 
 spec:
   entryPoints:
@@ -13,5 +13,8 @@ spec:
       match: Host(`{{.Values.host}}`)
 
       services:
-        - name: {{.Values.name}}
+        - name: {{ .Values.name }}
           port: 80
+
+  tls:
+    certResolver: acme-http

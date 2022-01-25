@@ -2,22 +2,22 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   namespace: argocd
-  
-  name: eops-api
-  
+
+  name: enableops-api
+
   finalizers:
     - resources-finalizer.argocd.argoproj.io
-  
+
   annotations:
     argocd.argoproj.io/sync-wave: "2"
 
 spec:
   project: default
-  
+
   destination:
     server: https://kubernetes.default.svc
-    namespace: eops-api
-  
+    namespace: enableops-api
+
   syncPolicy:
     automated:
       prune: true
@@ -30,18 +30,18 @@ spec:
     repoURL: https://github.com/AndreiChenchik/dev-cluster
     path: charts/python-app
     targetRevision: HEAD
-    
+
     helm:
       parameters:
-      - name: name
-        value: "eops-api"
-      - name: host
-        value: "api.local"
-      - name: targetPort
-        value: "8000"
-      - name: image
-        value: "eu.gcr.io/enableops-io/api:0.6.40"
-      - name: pullSecret
-        value: "eu-gcr-io"
-      - name: envSecret
-        value: "python-env"
+        - name: name
+          value: "enableops-api"
+        - name: host
+          value: "eops-web.casa.chenchik.me"
+        - name: targetPort
+          value: "8000"
+        - name: image
+          value: "eu.gcr.io/enableops-io/api:0.7.1"
+        - name: pullSecret
+          value: "eu-gcr-io"
+        - name: envSecret
+          value: "python-env"
