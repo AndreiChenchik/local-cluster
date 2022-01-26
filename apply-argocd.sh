@@ -10,9 +10,10 @@ fi
 echo "\nApplying ArgoCD to argocd namespace"
 helm repo add argo https://argoproj.github.io/argo-helm
 helm repo update
-helm install argocd argo/argo-cd -n argocd --create-namespace --wait --set 'server.extraArgs={--insecure}'
-
-random_password=$(kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d; echo)
+helm upgrade --install \
+  argocd argo/argo-cd -n argocd \
+  --set 'server.extraArgs={--insecure}' \
+  --create-namespace --wait
 
 echo "\nUpdating the password"
 new_password=$(htpasswd -bnBC 10 "" $ARGOPASS | tr -d ':\n')
@@ -20,7 +21,7 @@ secret_patch='{"stringData": {
     "admin.password": "'$new_password'",
     "admin.passwordMtime": "'$(date +%FT%T%Z)'"
   }}'
-kubectl -n argocd patch secret argocd-secret -p $secret_patch
+kubectl -n argocd patch secret argocd-secret -p "$secret_patch"
 
 echo "\nCleaning argocd-initial-admin-secret"
 kubectl -n argocd delete secret argocd-initial-admin-secret
