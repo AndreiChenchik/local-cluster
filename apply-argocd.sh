@@ -14,15 +14,23 @@ helm install argocd argo/argo-cd -n argocd --create-namespace --wait --set 'serv
 
 random_password=$(kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d; echo)
 
-echo "\nAuthentificating and updating the password"
-argocd login --name local --username admin --password $random_password --port-forward-namespace argocd --port-forward --insecure
-argocd account update-password --account admin --current-password $random_password --new-password $ARGOPASS --insecure --port-forward-namespace argocd
+echo "\nUpdating the password"
+new_password=$(htpasswd -bnBC 10 "" $ARGOPASS | tr -d ':\n')
+secret_patch='{"stringData": {
+    "admin.password": "'$new_password'",
+    "admin.passwordMtime": "'$(date +%FT%T%Z)'"
+  }}'
+kubectl -n argocd patch secret argocd-secret -p $secret_patch
 
 echo "\nCleaning argocd-initial-admin-secret"
 kubectl -n argocd delete secret argocd-initial-admin-secret
 
+echo "\nRestarting and wait for argocd-server"
+kubectl rollout restart deployment argocd-server -n argocd
+kubectl -n argocd wait deployment argocd-server --for=condition=available
+
 echo "\nApplying root application"
 kubectl apply \
-	-f root-app.yaml
+	-f Application-Root.yaml
 
 echo "\nDone!"
