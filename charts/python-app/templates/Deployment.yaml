@@ -21,16 +21,15 @@ spec:
         vault.hashicorp.com/agent-inject: "true"
         vault.hashicorp.com/agent-inject-status: "update"
         vault.hashicorp.com/role: {{.Values.name}}
-        vault.hashicorp.com/agent-inject-secret-spawn: "kv/data/api/database/config"
+        vault.hashicorp.com/agent-inject-secret-spawn: "kv/data/api/{{.Values.environment}}"
         vault.hashicorp.com/agent-inject-template-spawn: |
           {{- `
-          {{- with secret "kv/data/api/database/config" -}}
+          {{- with secret "kv/data/api/`}}{{.Values.environment}}{{`" -}}
           {{- range $k, $v := .Data.data }}
           echo {{ $k }} > /vault/secrets/{{ $v }}
           {{- end }}{{ end }}
           rm /vault/secrets/spawn
           `}}
-        vault.hashicorp.com/agent-inject-perms-spawn: "0644"
         vault.hashicorp.com/agent-inject-command-spawn: "cat /vault/secrets/spawn | sh --"
 
     spec:
@@ -43,9 +42,9 @@ spec:
           ports:
             - containerPort: {{.Values.targetPort}}
 
-          envFrom:
-            - secretRef:
-                name: {{.Values.envSecret}}
+          env:
+            - name: API_ENV_STATE
+              value: {{.Values.environment}}
 
       imagePullSecrets:
         - name: {{.Values.pullSecret}}

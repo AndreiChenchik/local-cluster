@@ -43,5 +43,5 @@ spec:
           value: "eu.gcr.io/enableops-io/api:0.7.1"
         - name: pullSecret
           value: "eu-gcr-io"
-        - name: envSecret
-          value: "python-env"
+        - name: environment
+          value: "prod"

@@ -3,4 +3,4 @@ host: localhost
 image: some-image
 targetPort: 8000
 pullSecret: some-secret
-envSecret: some-secret
+environment: dev
