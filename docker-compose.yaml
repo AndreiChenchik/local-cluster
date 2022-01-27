@@ -62,8 +62,6 @@ services:
       - ~/.scripts/1penv.sh:/home/vscode/1penv.sh:cached
       - ~/.config/op/config:/home/vscode/.config/op/config
 
-    init: true
-
     command: sleep infinity
 
     network_mode: service:postgres
