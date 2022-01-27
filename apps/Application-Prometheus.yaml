@@ -25,6 +25,7 @@ spec:
     syncOptions:
       - Validate=true
       - CreateNamespace=true
+      - Replace=true
 
   source:
     chart: kube-prometheus-stack
