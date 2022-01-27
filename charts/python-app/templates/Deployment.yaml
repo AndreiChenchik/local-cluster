@@ -31,7 +31,7 @@ spec:
           rm /vault/secrets/spawn
           `}}
         vault.hashicorp.com/agent-inject-perms-spawn: "0744"
-        vault.hashicorp.com/agent-inject-command-spawn: "/vault/secrets/spawn"
+        vault.hashicorp.com/agent-inject-command-spawn: "rm /vault/secrets/spawn"
 
     spec:
       serviceAccountName: {{.Values.name}}
