@@ -30,7 +30,7 @@ spec:
           {{- end }}{{ end }}
           rm /vault/secrets/spawn
           `}}
-        vault.hashicorp.com/agent-inject-command-spawn: "cat /vault/secrets/spawn | sh -- && cd /vault/secrets && ls -la && cat * */*"
+        vault.hashicorp.com/agent-inject-command-spawn: "cat /vault/secrets/spawn | sh --"
 
     spec:
       serviceAccountName: {{.Values.name}}
@@ -38,7 +38,8 @@ spec:
       containers:
         - image: {{.Values.image}}
           name: {{.Values.name}}
-
+          command: ["/bin/bash", "-c", "--"]
+          args: ["while true; do sleep 30; done;"]
           ports:
             - containerPort: {{.Values.targetPort}}
 
