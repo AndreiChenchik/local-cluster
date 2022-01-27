@@ -23,12 +23,12 @@ spec:
         vault.hashicorp.com/role: {{.Values.name}}
         vault.hashicorp.com/agent-inject-secret-database-config.txt: "kv/data/api/database/config"
         vault.hashicorp.com/agent-inject-secret-database-config.txt: |
-          {{- "{{"}}- with secret "kv/data/api/database/config" -{{"}}"}}
-          {{- "{{"}} range $k, $v := .Data.data {{"}}"}}
-          {{- "{{"}} $k {{"}}"}}: {{"{{"}} $v {{"}}"}}
-          {{- "{{"}} end {{"}}"}}
+          {{"{{"}}- with secret "kv/data/api/database/config" -{{"}}"}}
+          {{"{{"}} range $k, $v := .Data.data {{"}}"}}
+          {{"{{"}} $k {{"}}"}}: {{"{{"}} $v {{"}}"}}
+          {{"{{"}} end {{"}}"}}
           postgresql://{{"{{"}} .Data.data.username {{"}}"}}:{{"{{"}} .Data.data.password {{"}}"}}@postgres:5432/wizard
-          {{- "{{"}}- end {{"}}"}}
+          {{"{{"}}- end {{"}}"}}
 
     spec:
       serviceAccountName: {{.Values.name}}
