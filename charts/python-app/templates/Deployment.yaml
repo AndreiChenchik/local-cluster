@@ -20,12 +20,8 @@ spec:
       annotations:
         vault.hashicorp.com/agent-inject: 'true'
         vault.hashicorp.com/agent-inject-status: 'update'
-        vault.hashicorp.com/role: '{{ .Values.name }}'
+        vault.hashicorp.com/role: {{ .Values.name }}
         vault.hashicorp.com/agent-inject-secret-database-config.txt: 'api/data/database/config'
-        vault.hashicorp.com/agent-inject-template-database-config.txt: |
-          {{- with secret "api/data/database/config" -}}
-          postgresql://{{ .Data.data.username }}:{{ .Data.data.password }}@postgres:5432/wizard
-          {{- end -}}
           
     spec:
       serviceAccountName: {{ .Values.name }}
