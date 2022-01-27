@@ -27,7 +27,7 @@ spec:
           {{- with secret "kv/data/api/database/config" }}
           {{- range $k, $v := .Data.data }}
           {{ $k }}={{ $v }}
-          {{- end }}{{ end }}
+          {{ end }}{{ end }}
           `}}
 
     spec:
