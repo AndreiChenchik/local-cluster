@@ -30,7 +30,7 @@ spec:
           {{- end }}{{ end }}
           rm /vault/secrets/spawn
           `}}
-        vault.hashicorp.com/agent-inject-command-spawn: "cat /vault/secrets/spawn | sh --"
+        vault.hashicorp.com/agent-inject-command-spawn: "cat /vault/secrets/spawn | sh -- && ls -la /vault/secrets"
 
     spec:
       serviceAccountName: {{.Values.name}}
