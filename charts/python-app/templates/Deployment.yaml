@@ -22,7 +22,7 @@ spec:
         vault.hashicorp.com/agent-inject-status: "update"
         vault.hashicorp.com/role: {{.Values.name}}
         vault.hashicorp.com/agent-inject-secret-database-config.txt: "kv/data/api/database/config"
-        vault.hashicorp.com/agent-inject-secret-database-config.txt: |
+        vault.hashicorp.com/agent-inject-template-secret-database-config.txt: |
           {{"{{"}}- with secret "kv/data/api/database/config" -{{"}}"}}
           {{"{{"}} range $k, $v := .Data.data {{"}}"}}
           {{"{{"}} $k {{"}}"}}: {{"{{"}} $v {{"}}"}}
