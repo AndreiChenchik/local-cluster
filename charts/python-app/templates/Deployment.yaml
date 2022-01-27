@@ -45,6 +45,8 @@ spec:
           env:
             - name: API_ENV_STATE
               value: {{.Values.environment}}
+            - name: API_SECRETS_PATH
+              value: "/vault/secrets"
 
       imagePullSecrets:
         - name: {{.Values.pullSecret}}
