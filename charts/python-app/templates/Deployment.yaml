@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 
 metadata:
-  name: { { .Values.name } }
+  name: {{.Values.name}}
 
 spec:
   replicas: 1
@@ -10,32 +10,32 @@ spec:
 
   selector:
     matchLabels:
-      app: { { .Values.name } }
+      app: {{.Values.name}}
 
   template:
     metadata:
       labels:
-        app: { { .Values.name } }
+        app: {{.Values.name}}
 
       annotations:
         vault.hashicorp.com/agent-inject: "true"
         vault.hashicorp.com/agent-inject-status: "update"
-        vault.hashicorp.com/role: { { .Values.name } }
+        vault.hashicorp.com/role: {{.Values.name}}
         vault.hashicorp.com/agent-inject-secret-database-config.txt: "kv/data/api/database/config"
 
     spec:
-      serviceAccountName: { { .Values.name } }
+      serviceAccountName: {{.Values.name}}
 
       containers:
-        - image: { { .Values.image } }
-          name: { { .Values.name } }
+        - image: {{.Values.image}}
+          name: {{.Values.name}}
 
           ports:
-            - containerPort: { { .Values.targetPort } }
+            - containerPort: {{.Values.targetPort}}
 
           envFrom:
             - secretRef:
-                name: { { .Values.envSecret } }
+                name: {{.Values.envSecret}}
 
       imagePullSecrets:
-        - name: { { .Values.pullSecret } }
+        - name: {{.Values.pullSecret}}
