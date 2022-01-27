@@ -24,11 +24,11 @@ spec:
         vault.hashicorp.com/agent-inject-secret-secrets: "kv/data/api/database/config"
         vault.hashicorp.com/agent-inject-template-secrets: |
           {{- `
-            {{- with secret "kv/data/api/database/config" -}}
-              {{- range $k, $v := .Data.data }}
-                {{ $k }}={{ $v }}
-              {{- end }}
+          {{- with secret "kv/data/api/database/config" -}}
+            {{- range $k, $v := .Data.data }}
+              {{ $k }}={{ $v }}
             {{- end }}
+          {{- end }}
           `}}
 
     spec:
