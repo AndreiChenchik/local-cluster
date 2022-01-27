@@ -32,3 +32,6 @@ spec:
     targetRevision: 30.2.0
     helm:
       releaseName: prometheus
+      parameters:
+        - name: prometheus-node-exporter.hostRootFsMount
+          value: "false"
