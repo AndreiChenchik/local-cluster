@@ -40,7 +40,7 @@ spec:
         - name: targetPort
           value: "8000"
         - name: image
-          value: "eu.gcr.io/enableops-io/api:0.7.1"
+          value: "eu.gcr.io/enableops-io/api:0.8.0"
         - name: pullSecret
           value: "eu-gcr-io"
         - name: environment
