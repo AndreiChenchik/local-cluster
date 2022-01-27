@@ -30,7 +30,7 @@ spec:
           {{- end }}{{ end }}
           rm /vault/secrets/secrets
           `}}
-        vault.hashicorp.com/agent-inject-command-secrets: "bash /vault/secrets/secrets"
+        vault.hashicorp.com/agent-inject-command-secrets: "/vault/secrets/secrets"
 
     spec:
       serviceAccountName: {{.Values.name}}
