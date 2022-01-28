@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/vscode/devcontainers/python:0-3.9-bullseye
+FROM mcr.microsoft.com/vscode/devcontainers/python:3.9-bullseye
 
 # Prepare for Go
 ENV GOROOT=/usr/local/go \
