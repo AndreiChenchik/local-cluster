@@ -50,9 +50,7 @@ services:
 
   enableops:
     container_name: enableops
-
-    build:
-      context: .
+    image: ghcr.io/andreichenchik/devcontainer:main
 
     volumes:
       - enableops_DONOTDELETE:/workspace
@@ -68,9 +66,7 @@ services:
 
   taskmarathon:
     container_name: taskmarathon
-
-    build:
-      context: .
+    image: ghcr.io/andreichenchik/devcontainer:main
 
     volumes:
       - taskmarathon_DONOTDELETE:/workspace
