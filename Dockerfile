@@ -7,7 +7,8 @@ ENV PATH=${GOPATH}/bin:${GOROOT}/bin:${PATH}
 ENV DOCKER_BUILDKIT=1
       
 # Install gh docker-ce docker-ce-cli containerd.io kubectl helm google-cloud-sdk
-RUN bash -c "$(curl -fsSL "https://raw.githubusercontent.com/microsoft/vscode-dev-containers/main/script-library/github-debian.sh")" \
+RUN echo "Devcontainer scripts" \
+  # && bash -c "$(curl -fsSL "https://raw.githubusercontent.com/microsoft/vscode-dev-containers/main/script-library/github-debian.sh")" \
   && bash -c "$(curl -fsSL "https://raw.githubusercontent.com/microsoft/vscode-dev-containers/main/script-library/docker-debian.sh")" \
   && bash -c "$(curl -fsSL "https://raw.githubusercontent.com/microsoft/vscode-dev-containers/main/script-library/terraform-debian.sh")" \
   && bash -c "$(curl -fsSL "https://raw.githubusercontent.com/microsoft/vscode-dev-containers/main/script-library/kubectl-helm-debian.sh")" \
