@@ -8,30 +8,19 @@ if [ "$ARGOPASS" = "" ]; then
 fi
 
 echo "\n🧬 Apply ArgoCD to argocd namespace"
+argo_password=$(htpasswd -bnBC 10 "" $ARGOPASS | tr -d ':\n')
+argo_password_mtime=$(date +%FT%T%Z)
+
 helm repo add argo https://argoproj.github.io/argo-helm
 helm repo update
 helm upgrade --install \
   argocd argo/argo-cd -n argocd \
+  --version "3.31.1" \
   --set 'server.extraArgs={--insecure}' \
+  --set "configs.secret.argocdServerAdminPassword=$argo_password" \
+  --set "configs.secret.argocdServerAdminPasswordMtime=$argo_password_mtime" \
   --create-namespace --wait
 
-echo "\n🔓 Update the ArgoCD password"
-new_password=$(htpasswd -bnBC 10 "" $ARGOPASS | tr -d ':\n')
-secret_patch='{"stringData": {
-    "admin.password": "'$new_password'",
-    "admin.passwordMtime": "'$(date +%FT%T%Z)'"
-  }}'
-kubectl -n argocd patch secret argocd-secret -p "$secret_patch"
-
-echo "\n🗑  Clean default argocd-initial-admin-secret if exists"
-kubectl -n argocd delete secret argocd-initial-admin-secret || true
-
-echo "\n🤖 Restart and wait for argocd-server"
-kubectl rollout restart deployment argocd-server -n argocd
-kubectl -n argocd wait deployment argocd-server --for=condition=available
-
-echo "\n🚀 Apply root application"
-kubectl apply \
-	-f Application-Root.yaml
+kubectl apply -f root.yaml
 
 echo "\n🎖  Done!"
