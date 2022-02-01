@@ -1,45 +1,45 @@
-# apiVersion: argoproj.io/v1alpha1
-# kind: Application
-# metadata:
-#   namespace: argocd
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  namespace: argocd
 
-#   name: vault
+  name: vault
 
-#   finalizers:
-#     - resources-finalizer.argocd.argoproj.io
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
 
-#   annotations:
-#     argocd.argoproj.io/sync-wave: "1"
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
 
-# spec:
-#   project: default
+spec:
+  project: default
 
-#   destination:
-#     server: https://kubernetes.default.svc
-#     namespace: vault
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: vault
 
-#   ignoreDifferences:
-#     - group: admissionregistration.k8s.io
-#       kind: MutatingWebhookConfiguration
-#       jsonPointers:
-#         - /webhooks/0/clientConfig/caBundle
+  ignoreDifferences:
+    - group: admissionregistration.k8s.io
+      kind: MutatingWebhookConfiguration
+      jsonPointers:
+        - /webhooks/0/clientConfig/caBundle
 
-#   syncPolicy:
-#     automated:
-#       prune: true
-#       selfHeal: true
-#     syncOptions:
-#       - Validate=true
-#       - CreateNamespace=true
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - Validate=true
+      - CreateNamespace=true
 
-#   source:
-#     chart: vault
-#     repoURL: https://helm.releases.hashicorp.com
-#     targetRevision: 0.19.0
-#     helm:
-#       releaseName: vault
-#       parameters:
-#         - name: ha.enabled
-#           value: "true"
-#         - name: ha.replicas
-#           value: "2"
+  source:
+    chart: vault
+    repoURL: https://helm.releases.hashicorp.com
+    targetRevision: 0.19.0
+    helm:
+      releaseName: vault
+      parameters:
+        - name: ha.enabled
+          value: "true"
+        - name: ha.replicas
+          value: "2"

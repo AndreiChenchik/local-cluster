@@ -1,37 +1,37 @@
-# apiVersion: v1
-# kind: Namespace
-# metadata:
-#   name: duckdns
-# ---
-# apiVersion: apps/v1
-# kind: Deployment
-# metadata:
-#   name: duckdns
-#   namespace: duckdns
-#   labels:
-#     app: duckdns
-# spec:
-#   selector:
-#     matchLabels:
-#       app: duckdns
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: duckdns
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: duckdns
+  namespace: duckdns
+  labels:
+    app: duckdns
+spec:
+  selector:
+    matchLabels:
+      app: duckdns
 
-#   replicas: 1
-#   revisionHistoryLimit: 2
+  replicas: 1
+  revisionHistoryLimit: 2
 
-#   template:
-#     metadata:
-#       labels:
-#         app: duckdns
+  template:
+    metadata:
+      labels:
+        app: duckdns
 
-#     spec:
-#       containers:
-#         - image: ghcr.io/linuxserver/duckdns
-#           name: duckdns
-#           env:
-#             - name: TOKEN
-#               valueFrom:
-#                 secretKeyRef:
-#                   name: duckdns-secret
-#                   key: token
-#             - name: SUBDOMAINS
-#               value: canchenchik
+    spec:
+      containers:
+        - image: ghcr.io/linuxserver/duckdns
+          name: duckdns
+          env:
+            - name: TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: duckdns-secret
+                  key: token
+            - name: SUBDOMAINS
+              value: canchenchik
