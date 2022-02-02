@@ -29,7 +29,7 @@ spec:
   source:
     chart: python-app
     repoURL: https://chenchik.me/helm-charts/
-    targetRevision: 0.0.1
+    targetRevision: "*"
     helm:
       releaseName: enableops-api
       parameters:
