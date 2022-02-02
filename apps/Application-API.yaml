@@ -1,47 +1,47 @@
-# apiVersion: argoproj.io/v1alpha1
-# kind: Application
-# metadata:
-#   namespace: argocd
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  namespace: argocd
 
-#   name: enableops-api
+  name: enableops-api
 
-#   finalizers:
-#     - resources-finalizer.argocd.argoproj.io
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
 
-#   annotations:
-#     argocd.argoproj.io/sync-wave: "2"
+  annotations:
+    argocd.argoproj.io/sync-wave: "2"
 
-# spec:
-#   project: default
+spec:
+  project: default
 
-#   destination:
-#     server: https://kubernetes.default.svc
-#     namespace: enableops-api
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: enableops-api
 
-#   syncPolicy:
-#     automated:
-#       prune: true
-#       selfHeal: true
-#     syncOptions:
-#       - Validate=true
-#       - CreateNamespace=true
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - Validate=true
+      - CreateNamespace=true
 
-#   source:
-#     chart: python-app
-#     repoURL: https://chenchik.me/helm-charts/
-#     targetRevision: 0.0.1
-#     helm:
-#       releaseName: enableops-api
-#       parameters:
-#         - name: name
-#           value: "enableops-api"
-#         - name: host
-#           value: "eops-api.casa.chenchik.me"
-#         - name: targetPort
-#           value: "8000"
-#         - name: image
-#           value: "eu.gcr.io/enableops-io/api:0.8.2"
-#         - name: pullSecret
-#           value: "eu-gcr-io"
-#         - name: environment
-#           value: "prod"
+  source:
+    chart: python-app
+    repoURL: https://chenchik.me/helm-charts/
+    targetRevision: 0.0.1
+    helm:
+      releaseName: enableops-api
+      parameters:
+        - name: name
+          value: "enableops-api"
+        - name: host
+          value: "eops-api.casa.chenchik.me"
+        - name: targetPort
+          value: "8000"
+        - name: image
+          value: "eu.gcr.io/enableops-io/api:0.8.2"
+        - name: pullSecret
+          value: "eu-gcr-io"
+        - name: environment
+          value: "prod"
