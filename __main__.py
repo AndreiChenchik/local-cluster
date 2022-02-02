@@ -81,6 +81,7 @@ release_values = {
         "extraArgs": ["--insecure"],
         "additionalApplications": [root_app],
     },
+    "controller": {"args": {"appResyncPeriod": 60}},
 }
 
 argocd_namespace = Namespace("argocd", metadata={"name": "argocd"})
@@ -90,7 +91,7 @@ release_args = ReleaseArgs(
     repository_opts=RepositoryOptsArgs(
         repo="https://argoproj.github.io/argo-helm"
     ),
-    version="3.31.1",
+    version="3.33.1",
     name="argocd",
     namespace=argocd_namespace.metadata["name"],
     values=release_values,
