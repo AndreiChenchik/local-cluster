@@ -29,7 +29,7 @@ spec:
   source:
     chart: traefik
     repoURL: https://helm.traefik.io/traefik
-    targetRevision: ~10.9.1
+    targetRevision: ~10
     helm:
       releaseName: traefik
       parameters:
