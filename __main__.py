@@ -24,6 +24,7 @@ settings = Config()
 
 
 # Secrets
+# apps/duckdns.yaml
 duckdns_namespace = Namespace("duckdns_namespace", metadata={"name": "duckdns"})
 duckdns_secret = Secret(
     "duckdns_secret",
@@ -31,9 +32,10 @@ duckdns_secret = Secret(
     metadata={"name": "duckdns-secret", "namespace": "duckdns"},
 )
 
-# enableops_api_namespace = Namespace(
-#     "enableops_api_namespace", metadata={"name": "enableops-api"}
-# )
+# apps/Application-API.yaml
+enableops_api_namespace = Namespace(
+    "enableops_api_namespace", metadata={"name": "enableops-api"}
+)
 eugcrio_pullsecret = Secret(
     "eugcrio_pullsecret",
     data={".dockerconfigjson": settings.GCR_DOCKERJSON_TOKEN},
