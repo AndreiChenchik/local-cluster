@@ -52,6 +52,6 @@ spec:
         - name: additionalArguments[8]
           value: "--certificatesresolvers.acme-http.acme.caserver=https://acme-v02.api.letsencrypt.org/directory"
         - name: additionalArguments[9]
-          value: "--certificatesresolvers.acme-http.acme.email=hello@enableops.io"
+          value: "--certificatesresolvers.acme-http.acme.email=andrei@chenchik.me"
         - name: service.type
           value: "LoadBalancer"
