@@ -27,11 +27,11 @@ spec:
       - CreateNamespace=true
 
   source:
-    repoURL: https://github.com/AndreiChenchik/dev-cluster
-    path: charts/python-app
-    targetRevision: HEAD
-
+    chart: python-app
+    repoURL: https://chenchik.me/helm-charts/
+    targetRevision: 0.0.1
     helm:
+      releaseName: enableops-api
       parameters:
         - name: name
           value: "enableops-api"
