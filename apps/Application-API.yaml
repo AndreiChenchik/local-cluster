@@ -27,21 +27,20 @@ spec:
       - CreateNamespace=true
 
   source:
-    chart: python-app
+    chart: web-app
     repoURL: https://chenchik.me/helm-charts/
-    targetRevision: "*"
+    targetRevision: "~0.1-"
     helm:
       releaseName: enableops-api
-      parameters:
-        - name: name
-          value: "enableops-api"
-        - name: host
-          value: "eops-api.casa.chenchik.me"
-        - name: targetPort
-          value: "8000"
-        - name: image
-          value: "eu.gcr.io/enableops-io/api:0.8.2"
-        - name: pullSecret
-          value: "eu-gcr-io"
-        - name: environment
-          value: "prod"
+      values: |
+        name: enableops-api
+        image:
+          repository: "eu.gcr.io/enableops-io/api"
+          tag: "0.8.2"
+          pullSecret: "eu-gcr-io"
+        ingressHost: eops-api.casa.chenchik.me
+        service:
+          targetPort: 8000
+        config:
+          API_ENV_STATE: dev
+          API_SECRETS_PATH: "/vault/secrets"
