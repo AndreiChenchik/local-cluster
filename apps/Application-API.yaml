@@ -29,7 +29,7 @@ spec:
   source:
     chart: web-app
     repoURL: https://chenchik.me/helm-charts/
-    targetRevision: "~0.1.0-0"
+    targetRevision: "~0.2.0-0"
     helm:
       releaseName: enableops-api
       values: |
@@ -49,5 +49,8 @@ spec:
           API_ENV_STATE: dev
           API_SECRETS_PATH: "/vault/secrets"
 
-        vault-init:
+        vault-k8s-role:
+          enabled: true
+
+        vault-policy:
           enabled: true
