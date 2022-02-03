@@ -29,12 +29,10 @@ spec:
   source:
     chart: web-app
     repoURL: https://chenchik.me/helm-charts/
-    targetRevision: "~0.2.0-0"
+    targetRevision: "~0.3.0-0"
     helm:
       releaseName: enableops-api
       values: |
-        name: enableops-api
-
         image:
           repository: "eu.gcr.io/enableops-io/api"
           tag: "0.8.2"
@@ -49,8 +47,19 @@ spec:
           API_ENV_STATE: dev
           API_SECRETS_PATH: "/vault/secrets"
 
-        vault-k8s-role:
-          enabled: true
+        global:
+          jobs:
+            vault-k8s-role: true
+            vault-policy: true 
 
-        vault-policy:
-          enabled: true
+          vault:
+            secretPath: "api/local"
+
+            mountSecret:
+              enabled: true
+              path: "/vault/secrets"
+
+            server:
+              token:
+                secretName: vault-token
+                secretKey: token
