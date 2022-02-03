@@ -33,13 +33,14 @@ spec:
       - CreateNamespace=true
 
   source:
-    chart: vault
-    repoURL: https://helm.releases.hashicorp.com
-    targetRevision: ~0.19
+    chart: vault-bootstrap
+    repoURL: https://chenchik.me/helm-charts
+    targetRevision: ~0.0.1
     helm:
       releaseName: vault
-      parameters:
-        - name: ha.enabled
-          value: "true"
-        - name: ha.replicas
-          value: "2"
+      values: |
+        vault:
+          ha.enabled: true
+          ha.replicas: 2
+        vault-init:
+          enabled: true
