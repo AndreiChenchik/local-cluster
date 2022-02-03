@@ -47,11 +47,11 @@ spec:
           API_ENV_STATE: dev
           API_SECRETS_PATH: "/vault/secrets"
 
-        global:
-          jobs:
-            vault-k8s-role: true
-            vault-policy: true 
+        jobs:
+          vault-k8s-role: true
+          vault-policy: true 
 
+        global:
           vault:
             secretPath: "api/local"
 
