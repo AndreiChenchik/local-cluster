@@ -34,13 +34,20 @@ spec:
       releaseName: enableops-api
       values: |
         name: enableops-api
+
         image:
           repository: "eu.gcr.io/enableops-io/api"
           tag: "0.8.2"
           pullSecret: "eu-gcr-io"
+
         ingressHost: eops-api.casa.chenchik.me
+
         service:
           targetPort: 8000
+
         config:
           API_ENV_STATE: dev
           API_SECRETS_PATH: "/vault/secrets"
+
+        vault-init:
+          enabled: true
