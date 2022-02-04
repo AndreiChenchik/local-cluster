@@ -6,7 +6,7 @@ metadata:
 spec:
   chain:
     middlewares:
-      - name: forwardauth-authelia
+      - name: kubernetes-dashboard-forwardauth-authelia
 ---
 apiVersion: traefik.containo.us/v1alpha1
 kind: Middleware
