@@ -42,8 +42,8 @@ spec:
             entryPoints:
               - websecure
             tls:
+              existingOptions: false
               certResolver: acme-http
-              existingOptions: {}
         configMap:
           authentication_backend:
             ldap:
