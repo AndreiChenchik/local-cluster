@@ -13,6 +13,9 @@ spec:
     - match: Host(`traefik.casa.chenchik.me`)
       kind: Rule
 
+      middlewares:
+        - name: chain-authelia-auth
+
       services:
         - name: api@internal
           kind: TraefikService
