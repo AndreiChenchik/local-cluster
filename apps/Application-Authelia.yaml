@@ -39,6 +39,8 @@ spec:
           subdomain: auth
           traefikCRD:
             enabled: true
+            entryPoints:
+              - websecure
             tls:
               certResolver: acme-http
         configMap:
