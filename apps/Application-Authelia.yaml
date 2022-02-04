@@ -60,6 +60,9 @@ spec:
             file:
               enabled: true
               path: /config/users/users_database.yaml
+            rules:
+            - domain: "*.chenchik.me"
+              policy: one_factor
           session:
             redis:
               enabled: false
