@@ -42,7 +42,8 @@ spec:
             entryPoints:
               - websecure
             tls:
-              existingOptions: null
+              existingOptions:
+                sniStrict: true
               certResolver: acme-http
         configMap:
           authentication_backend:
