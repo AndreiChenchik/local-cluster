@@ -15,6 +15,7 @@ spec:
 
       middlewares:
         - name: chain-authelia-auth
+          namespace: traefik
 
       services:
         - name: vault
