@@ -43,7 +43,6 @@ spec:
               - websecure
             tls:
               options:
-                nameOverride: authelia-tls-options
                 minVersion: VersionTLS12
                 maxVersion: VersionTLS13
                 curvePreferences:
