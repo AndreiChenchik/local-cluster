@@ -1,5 +1,6 @@
 from datetime import datetime, timezone
 
+from argon2 import PasswordHasher
 import bcrypt
 from pydantic import BaseSettings
 from pulumi_kubernetes.helm.v3 import (
@@ -12,6 +13,7 @@ from pulumi_kubernetes.core.v1 import Namespace, Secret
 
 class Config(BaseSettings):
     ARGOCD_PASSWORD: bytes
+    AUTHELIA_PASSWORD: str
     GCR_DOCKERJSON_TOKEN: str
     DUCKDNS_TOKEN: str
 
@@ -41,6 +43,27 @@ eugcrio_pullsecret = Secret(
     data={".dockerconfigjson": settings.GCR_DOCKERJSON_TOKEN},
     metadata={"name": "eu-gcr-io", "namespace": "enableops-api"},
     type="kubernetes.io/dockerconfigjson",
+)
+
+# apps/Application-Authelia.yaml
+argon2ph = PasswordHasher()
+authelia_password_hash = argon2ph.hash(settings.AUTHELIA_PASSWORD)
+authelia_users_database = f"""
+users:
+  andrei:
+    displayname: "Andrei Chenchik"
+    password: "{authelia_password_hash}"
+    email: andrei@chenchik.me
+"""
+
+authelia_namespace = Namespace(
+    "authelia_namespace", metadata={"name": "authelia"}
+)
+
+authelia_users = Secret(
+    "authelia_users",
+    string_data={"users_database.yaml": authelia_users_database},
+    metadata={"name": "authelia-users", "namespace": "authelia"},
 )
 
 # ArgoCD
