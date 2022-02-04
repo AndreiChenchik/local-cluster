@@ -3,7 +3,7 @@ kind: IngressRoute
 
 metadata:
   name: vault-dashboard
-  namespace: vault
+  namespace: traefik
 
 spec:
   entryPoints:
