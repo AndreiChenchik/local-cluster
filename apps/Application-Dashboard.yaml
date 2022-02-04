@@ -33,5 +33,6 @@ spec:
     helm:
       releaseName: kubernetes-dashboard
       values: |
+        protocolHttp: true
         extraArgs:
           - --enable-insecure-login
