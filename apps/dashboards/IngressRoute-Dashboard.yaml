@@ -15,6 +15,7 @@ spec:
 
       middlewares:
         - name: kubernetes-dashboard-chain-authelia-auth
+          namespace: kubernetes-dashboard
 
       services:
         - name: kubernetes-dashboard
