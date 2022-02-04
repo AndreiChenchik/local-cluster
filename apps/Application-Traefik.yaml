@@ -1,63 +1,63 @@
-# apiVersion: argoproj.io/v1alpha1
-# kind: Application
-# metadata:
-#   namespace: argocd
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  namespace: argocd
 
-#   name: traefik
+  name: traefik
 
-#   finalizers:
-#     - resources-finalizer.argocd.argoproj.io
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
 
-#   annotations:
-#     argocd.argoproj.io/sync-wave: "1"
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
 
-# spec:
-#   project: default
+spec:
+  project: default
 
-#   destination:
-#     server: https://kubernetes.default.svc
-#     namespace: traefik
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: traefik
 
-#   syncPolicy:
-#     automated:
-#       prune: true
-#       selfHeal: true
-#     syncOptions:
-#       - Validate=true
-#       - CreateNamespace=true
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - Validate=true
+      - CreateNamespace=true
 
-#   source:
-#     chart: traefik
-#     repoURL: https://helm.traefik.io/traefik
-#     targetRevision: ~10
-#     helm:
-#       releaseName: traefik
-#       values: |
-#         additionalArguments:
-#           - --accesslog=true
-#           - --log.level=DEBUG
-#           - --api=true
-#           - --api.dashboard=true
-#           - --entrypoints.websecure.http.tls.certresolver=acme-http
-#           - --entrypoints.websecure.http.tls.domains[0].main=casa.chenchik.me
-#           - --entrypoints.websecure.http.tls.domains[0].sans=*.casa.chenchik.me
-#           - --certificatesresolvers.acme-http.acme.dnsChallenge.provider=cloudflare
-#           - --certificatesresolvers.acme-http.acme.dnsChallenge.resolver=1.1.1.1
-#           - --certificatesresolvers.acme-http.acme.storage=/data/acme.json
-#           - --certificatesresolvers.acme-http.acme.email=andrei@chenchik.me
-#         ports:
-#           web:
-#             redirectTo: websecure
-#         env:
-#           - name: CLOUDFLARE_EMAIL
-#             valueFrom:
-#               secretKeyRef:
-#                 key: email
-#                 name: cloudflare-api-credentials
-#           - name: CLOUDFLARE_API_KEY
-#             valueFrom:
-#               secretKeyRef:
-#                 key: apiKey
-#                 name: cloudflare-api-credentials
-#         service:
-#           type: LoadBalancer
+  source:
+    chart: traefik
+    repoURL: https://helm.traefik.io/traefik
+    targetRevision: ~10
+    helm:
+      releaseName: traefik
+      values: |
+        additionalArguments:
+          - --accesslog=true
+          - --log.level=DEBUG
+          - --api=true
+          - --api.dashboard=true
+          - --entrypoints.websecure.http.tls.certresolver=acme-http
+          - --entrypoints.websecure.http.tls.domains[0].main=casa.chenchik.me
+          - --entrypoints.websecure.http.tls.domains[0].sans=*.casa.chenchik.me
+          - --certificatesresolvers.acme-http.acme.dnsChallenge.provider=cloudflare
+          - --certificatesresolvers.acme-http.acme.dnsChallenge.resolver=1.1.1.1
+          - --certificatesresolvers.acme-http.acme.storage=/data/acme.json
+          - --certificatesresolvers.acme-http.acme.email=andrei@chenchik.me
+        ports:
+          web:
+            redirectTo: websecure
+        env:
+          - name: CLOUDFLARE_EMAIL
+            valueFrom:
+              secretKeyRef:
+                key: email
+                name: cloudflare-api-credentials
+          - name: CLOUDFLARE_API_KEY
+            valueFrom:
+              secretKeyRef:
+                key: apiKey
+                name: cloudflare-api-credentials
+        service:
+          type: LoadBalancer
