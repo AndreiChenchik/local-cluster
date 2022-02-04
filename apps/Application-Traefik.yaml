@@ -41,7 +41,6 @@ spec:
           - --certificatesresolvers.acme-http.acme.dnsChallenge.provider=cloudflare
           - --certificatesresolvers.acme-http.acme.storage=/data/acme.json
           - --certificatesresolvers.acme-http.acme.email=andrei@chenchik.me
-          - --certificatesresolvers.acme-http.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory
         ports:
           web:
             redirectTo: websecure
