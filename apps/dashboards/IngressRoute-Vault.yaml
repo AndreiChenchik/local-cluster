@@ -13,10 +13,6 @@ spec:
     - kind: Rule
       match: Host(`vault.casa.chenchik.me`)
 
-      middlewares:
-        - name: forwardauth-authelia
-          namespace: authelia
-
       services:
         - name: vault
           namespace: vault
