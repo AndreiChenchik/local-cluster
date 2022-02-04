@@ -39,6 +39,8 @@ spec:
           subdomain: auth
           traefikCRD:
             enabled: true
+            tls:
+              certResolver: acme-http
         configMap:
           authentication_backend:
             ldap:
