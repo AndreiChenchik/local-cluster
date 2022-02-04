@@ -42,7 +42,6 @@ spec:
           - --entrypoints.websecure.http.tls.domains[0].main=casa.chenchik.me
           - --entrypoints.websecure.http.tls.domains[0].sans=*.casa.chenchik.me
           - --certificatesresolvers.acme-http.acme.dnsChallenge.provider=cloudflare
-          - --certificatesresolvers.acme-http.acme.dnsChallenge.resolver=1.1.1.1
           - --certificatesresolvers.acme-http.acme.storage=/data/acme.json
           - --certificatesresolvers.acme-http.acme.email=andrei@chenchik.me
         ports:
