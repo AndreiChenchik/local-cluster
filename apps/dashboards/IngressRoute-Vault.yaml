@@ -14,7 +14,7 @@ spec:
       match: Host(`vault.casa.chenchik.me`) && PathPrefix(`/`)
 
       middlewares:
-        - name: chain-authelia-auth
+        - name: chain-authelia
           namespace: authelia
 
       services:
