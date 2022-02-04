@@ -42,7 +42,7 @@ cloudflare_api_credentials = Secret(
     "cloudflare_api_credentials",
     string_data={
         "email": settings.CLOUDFLARE_EMAIL,
-        "api": settings.CLOUDFLARE_API_KEY,
+        "apiKey": settings.CLOUDFLARE_API_KEY,
     },
     metadata={"name": "cloudflare-api-credentials", "namespace": "traefik"},
 )
