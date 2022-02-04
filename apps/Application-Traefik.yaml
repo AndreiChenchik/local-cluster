@@ -40,7 +40,6 @@ spec:
           - --api.dashboard=true
           - --entrypoints.websecure.http.tls.certresolver=acme-http
           - --certificatesresolvers.acme-http.acme.dnsChallenge.provider=cloudflare
-          - --certificatesresolvers.acme-http.acme.dnsChallenge.delayBeforeCheck=1
           - --certificatesresolvers.acme-http.acme.storage=/data/acme.json
           - --certificatesresolvers.acme-http.acme.email=andrei@chenchik.me
         ports:
