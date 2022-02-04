@@ -16,6 +16,8 @@ class Config(BaseSettings):
     AUTHELIA_PASSWORD: str
     GCR_DOCKERJSON_TOKEN: str
     DUCKDNS_TOKEN: str
+    CLOUDFLARE_EMAIL: str
+    CLOUDFLARE_API_KEY: str
 
     class Config:
         case_sensitive = True
@@ -32,6 +34,17 @@ duckdns_secret = Secret(
     "duckdns_secret",
     string_data={"token": settings.DUCKDNS_TOKEN},
     metadata={"name": "duckdns-secret", "namespace": "duckdns"},
+)
+
+# apps/Application-Traefik.yaml
+traefik_namespace = Namespace("traefik_namespace", metadata={"name": "traefik"})
+cloudflare_api_credentials = Secret(
+    "cloudflare_api_credentials",
+    string_data={
+        "email": settings.CLOUDFLARE_EMAIL,
+        "api": settings.CLOUDFLARE_API_KEY,
+    },
+    metadata={"name": "cloudflare-api-credentials", "namespace": "traefik"},
 )
 
 # apps/Application-API.yaml
