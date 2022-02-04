@@ -59,6 +59,7 @@ spec:
             smtp:
               enabled: false
         pod:
+          type: StatefulSet
           extraVolumeMounts:
             - name: users-database
               mountPath: "/config/users"
