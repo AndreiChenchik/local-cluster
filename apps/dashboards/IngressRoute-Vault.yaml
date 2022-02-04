@@ -11,7 +11,7 @@ spec:
 
   routes:
     - kind: Rule
-      match: Host(`vault.casa.chenchik.me`)
+      match: Host(`vault.chenchik.me`)
 
       services:
         - name: vault

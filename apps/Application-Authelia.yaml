@@ -33,7 +33,7 @@ spec:
     helm:
       releaseName: authelia
       values: |
-        domain: casa.chenchik.me
+        domain: chenchik.me
         ingress:
           enabled: true
           subdomain: auth

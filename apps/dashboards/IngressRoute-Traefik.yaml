@@ -10,7 +10,7 @@ spec:
     - websecure
 
   routes:
-    - match: Host(`traefik.casa.chenchik.me`)
+    - match: Host(`traefik.chenchik.me`)
       kind: Rule
 
       middlewares:

@@ -38,7 +38,7 @@ spec:
           tag: "0.8.2"
           pullSecret: "eu-gcr-io"
 
-        ingressHost: eops-api.casa.chenchik.me
+        ingressHost: eops-api.chenchik.me
 
         service:
           targetPort: 8000
@@ -49,7 +49,7 @@ spec:
 
         jobs:
           vault-k8s-role: true
-          vault-policy: true 
+          vault-policy: true
 
         global:
           vault:

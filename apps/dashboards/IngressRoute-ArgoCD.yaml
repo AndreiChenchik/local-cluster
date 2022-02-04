@@ -11,7 +11,7 @@ spec:
 
   routes:
     - kind: Rule
-      match: Host(`argocd.casa.chenchik.me`)
+      match: Host(`argocd.chenchik.me`)
 
       services:
         - name: argocd-server
