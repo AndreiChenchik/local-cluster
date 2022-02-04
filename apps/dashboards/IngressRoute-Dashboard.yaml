@@ -13,6 +13,9 @@ spec:
     - kind: Rule
       match: Host(`k8s.chenchik.me`)
 
+      middlewares:
+        - name: kubernetes-dashboard-chain-authelia-auth
+
       services:
         - name: kubernetes-dashboard
           namespace: kubernetes-dashboard

@@ -1,7 +1,7 @@
 apiVersion: traefik.containo.us/v1alpha1
 kind: Middleware
 metadata:
-  name: chain-authelia-auth
+  name: kubernetes-dashboard-chain-authelia-auth
   namespace: kubernetes-dashboard
 spec:
   chain:
@@ -11,7 +11,7 @@ spec:
 apiVersion: traefik.containo.us/v1alpha1
 kind: Middleware
 metadata:
-  name: forwardauth-authelia
+  name: kubernetes-dashboard-forwardauth-authelia
   namespace: kubernetes-dashboard
 spec:
   forwardAuth:
