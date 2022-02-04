@@ -39,3 +39,21 @@ spec:
           subdomain: auth
           traefikCRD:
             enabled: true
+        configMap:
+          authentication_backend:
+            ldap:
+              enabled: false
+            file:
+              enabled: true
+          session:
+            enabled: false
+          storage:
+            local:
+              enabled: true
+            postgres:
+              enabled: false
+          notifier:
+            filesystem:
+              enabled: true
+            smtp:
+              enabled: false
