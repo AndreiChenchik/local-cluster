@@ -60,6 +60,7 @@ spec:
             file:
               enabled: true
               path: /config/users/users_database.yaml
+          access_control:
             rules:
             - domain: "*.chenchik.me"
               policy: one_factor
