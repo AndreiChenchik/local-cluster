@@ -47,7 +47,8 @@ spec:
               enabled: true
               path: /config/users/users_database.yaml
           session:
-            enabled: false
+            redis:
+              enabled: false
           storage:
             local:
               enabled: true
