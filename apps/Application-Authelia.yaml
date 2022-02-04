@@ -37,6 +37,8 @@ spec:
         ingress:
           enabled: true
           subdomain: auth
+          tls:
+            secret: ""
           traefikCRD:
             enabled: true
             entryPoints:
