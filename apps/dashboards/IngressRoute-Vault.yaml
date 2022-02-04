@@ -3,7 +3,7 @@ kind: IngressRoute
 
 metadata:
   name: vault-dashboard
-  namespace: traefik
+  namespace: vault
 
 spec:
   entryPoints:
@@ -15,7 +15,6 @@ spec:
 
       middlewares:
         - name: chain-authelia-auth
-          namespace: traefik
 
       services:
         - name: vault

@@ -16,7 +16,7 @@ spec:
 
   destination:
     server: https://kubernetes.default.svc
-    namespace: traefik
+    namespace: authelia
 
   syncPolicy:
     automated:

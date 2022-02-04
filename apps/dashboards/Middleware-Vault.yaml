@@ -1,0 +1,25 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: chain-authelia-auth
+  namespace: vault
+spec:
+  chain:
+    middlewares:
+      - name: forwardauth-authelia
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: forwardauth-authelia
+  namespace: vault
+spec:
+  forwardAuth:
+    address: >-
+      http://authelia.traefik.svc.cluster.local/api/verify?rd=https://auth.casa.chenchik.me/
+    authResponseHeaders:
+      - Remote-User
+      - Remote-Name
+      - Remote-Email
+      - Remote-Groups
+    trustForwardHeader: true
