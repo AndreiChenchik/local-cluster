@@ -43,6 +43,7 @@ spec:
               - websecure
             tls:
               certResolver: acme-http
+              options: {}
         configMap:
           authentication_backend:
             ldap:
