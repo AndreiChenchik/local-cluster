@@ -1,0 +1,41 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  namespace: argocd
+
+  name: authelia
+
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+
+  annotations:
+    argocd.argoproj.io/sync-wave: "2"
+
+spec:
+  project: default
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: authelia
+
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - Validate=true
+      - CreateNamespace=true
+
+  source:
+    chart: authelia
+    repoURL: https://charts.authelia.com
+    targetRevision: ~0.8.1
+    helm:
+      releaseName: authelia
+      values: |
+        domain: casa.chenchik.me
+        ingress:
+          enabled: true
+          subdomain: auth
+          traefikCRD:
+            enabled: true
