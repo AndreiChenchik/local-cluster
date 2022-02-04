@@ -11,7 +11,7 @@ spec:
 
   routes:
     - kind: Rule
-      match: Host(`vault.casa.chenchik.me`) && PathPrefix(`/`)
+      match: Host(`vault.casa.chenchik.me`)
 
       middlewares:
         - name: chain-authelia
