@@ -34,5 +34,7 @@ spec:
       releaseName: kubernetes-dashboard
       values: |
         protocolHttp: true
+        service:
+          externalPort: 80
         extraArgs:
           - --enable-insecure-login
