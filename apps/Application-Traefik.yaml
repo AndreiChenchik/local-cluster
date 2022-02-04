@@ -32,26 +32,17 @@ spec:
     targetRevision: ~10
     helm:
       releaseName: traefik
-      parameters:
-        - name: additionalArguments[0]
-          value: "--accesslog=true"
-        - name: additionalArguments[1]
-          value: "--log.level=DEBUG"
-        - name: additionalArguments[2]
-          value: "--api=true"
-        - name: additionalArguments[3]
-          value: "--api.dashboard=true"
-        - name: additionalArguments[4]
-          value: "--certificatesresolvers.le=true"
-        - name: additionalArguments[5]
-          value: "--certificatesresolvers.acme-http.acme.httpchallenge=true"
-        - name: additionalArguments[6]
-          value: "--certificatesresolvers.acme-http.acme.httpchallenge.entrypoint=web"
-        - name: additionalArguments[7]
-          value: "--certificatesresolvers.acme-http.acme.storage=/data/acme.json"
-        - name: additionalArguments[8]
-          value: "--certificatesresolvers.acme-http.acme.caserver=https://acme-v02.api.letsencrypt.org/directory"
-        - name: additionalArguments[9]
-          value: "--certificatesresolvers.acme-http.acme.email=andrei@chenchik.me"
-        - name: service.type
-          value: "LoadBalancer"
+      values: |
+        additionalArguments:
+          - --accesslog=true
+          - --log.level=DEBUG
+          - --api=true
+          - --api.dashboard=true
+          - --certificatesresolvers.le=true
+          - --certificatesresolvers.acme-http.acme.httpchallenge=true
+          - --certificatesresolvers.acme-http.acme.httpchallenge.entrypoint=web
+          - --certificatesresolvers.acme-http.acme.storage=/data/acme.json
+          - --certificatesresolvers.acme-http.acme.caserver=https://acme-v02.api.letsencrypt.org/directory
+          - --certificatesresolvers.acme-http.acme.email=andrei@chenchik.me
+        service:
+          type: LoadBalancer
