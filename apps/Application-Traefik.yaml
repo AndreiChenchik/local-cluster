@@ -39,8 +39,6 @@ spec:
           - --api=true
           - --api.dashboard=true
           - --entrypoints.websecure.http.tls.certresolver=acme-http
-          - --entrypoints.websecure.http.tls.domains[0].main=casa.chenchik.me
-          - --entrypoints.websecure.http.tls.domains[0].sans=*.casa.chenchik.me
           - --certificatesresolvers.acme-http.acme.dnsChallenge.provider=cloudflare
           - --certificatesresolvers.acme-http.acme.storage=/data/acme.json
           - --certificatesresolvers.acme-http.acme.email=andrei@chenchik.me
