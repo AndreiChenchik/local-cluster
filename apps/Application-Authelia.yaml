@@ -37,13 +37,12 @@ spec:
         ingress:
           enabled: true
           subdomain: auth
-          tls:
-            enabled: false
           traefikCRD:
             enabled: true
             entryPoints:
               - websecure
             tls:
+              existingOptions: null
               certResolver: acme-http
         configMap:
           authentication_backend:
