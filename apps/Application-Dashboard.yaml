@@ -32,3 +32,6 @@ spec:
     targetRevision: ~5.1.3
     helm:
       releaseName: kubernetes-dashboard
+      values: |
+        extraArgs:
+          - --enable-insecure-login
