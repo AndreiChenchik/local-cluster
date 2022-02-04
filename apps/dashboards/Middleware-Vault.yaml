@@ -16,7 +16,7 @@ metadata:
 spec:
   forwardAuth:
     address: >-
-      http://authelia.traefik.svc.cluster.local/api/verify?rd=https://auth.casa.chenchik.me/
+      http://authelia.authelia.svc.cluster.local/api/verify?rd=https://auth.casa.chenchik.me/
     authResponseHeaders:
       - Remote-User
       - Remote-Name
