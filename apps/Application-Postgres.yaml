@@ -28,7 +28,7 @@ spec:
 
   source:
     chart: postgres
-    repoURL: https://chenchik.me/helm-charts/
+    repoURL: https://helm.chenchik.me/
     targetRevision: "*"
     helm:
       releaseName: postgres

@@ -34,7 +34,7 @@ spec:
 
   source:
     chart: vault-bootstrap
-    repoURL: https://chenchik.me/helm-charts
+    repoURL: https://helm.chenchik.me/
     targetRevision: ~0.0.1
     helm:
       releaseName: vault
