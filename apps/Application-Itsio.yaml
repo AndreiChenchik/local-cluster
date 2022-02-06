@@ -3,7 +3,7 @@ kind: Application
 metadata:
   namespace: argocd
 
-  name: istio
+  name: istio-base
 
   finalizers:
     - resources-finalizer.argocd.argoproj.io
@@ -32,3 +32,73 @@ spec:
     targetRevision: ~1.12.2
     helm:
       releaseName: istio-base
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  namespace: argocd
+
+  name: istiod
+
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
+
+spec:
+  project: default
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: istio-system
+
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - Validate=true
+      - CreateNamespace=true
+
+  source:
+    chart: istiod
+    repoURL: https://istio-release.storage.googleapis.com/charts
+    targetRevision: ~1.12.2
+    helm:
+      releaseName: istiod
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  namespace: argocd
+
+  name: istio-ingress
+
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
+
+spec:
+  project: default
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: istio-ingress
+
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - Validate=true
+      - CreateNamespace=true
+
+  source:
+    chart: gateway
+    repoURL: https://istio-release.storage.googleapis.com/charts
+    targetRevision: ~1.12.2
+    helm:
+      releaseName: istio-ingress
