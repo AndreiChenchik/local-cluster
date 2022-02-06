@@ -20,7 +20,7 @@ spec:
 
   ignoreDifferences:
     - group: admissionregistration.k8s.io
-      kind: MutatingWebhookConfiguration
+      kind: ValidatingWebhookConfiguration
       jsonPointers:
         - /webhooks/0/clientConfig/caBundle
 
