@@ -3,7 +3,7 @@ kind: Application
 metadata:
   namespace: argocd
 
-  name: itsio
+  name: istio
 
   finalizers:
     - resources-finalizer.argocd.argoproj.io
@@ -16,7 +16,7 @@ spec:
 
   destination:
     server: https://kubernetes.default.svc
-    namespace: itsio-system
+    namespace: istio-system
 
   syncPolicy:
     automated:
@@ -31,4 +31,4 @@ spec:
     repoURL: https://istio-release.storage.googleapis.com/charts
     targetRevision: ~1.12.2
     helm:
-      releaseName: itsio-base
+      releaseName: istio-base
