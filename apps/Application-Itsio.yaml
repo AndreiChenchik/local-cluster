@@ -18,6 +18,12 @@ spec:
     server: https://kubernetes.default.svc
     namespace: istio-system
 
+  ignoreDifferences:
+    - group: admissionregistration.k8s.io
+      kind: MutatingWebhookConfiguration
+      jsonPointers:
+        - /webhooks/0/clientConfig/caBundle
+
   syncPolicy:
     automated:
       prune: true
@@ -52,6 +58,12 @@ spec:
   destination:
     server: https://kubernetes.default.svc
     namespace: istio-system
+
+  ignoreDifferences:
+    - group: admissionregistration.k8s.io
+      kind: MutatingWebhookConfiguration
+      jsonPointers:
+        - /webhooks/0/clientConfig/caBundle
 
   syncPolicy:
     automated:
