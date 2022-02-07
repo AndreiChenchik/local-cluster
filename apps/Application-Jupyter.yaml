@@ -37,3 +37,6 @@ spec:
           image:
             name: jupyter/datascience-notebook
             tag: 2022-02-07
+        proxy:
+          service:
+            type: ClusterIP
