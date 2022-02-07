@@ -42,7 +42,7 @@ spec:
               allowed_organizations:
                 - AndreiChenchik
               scope:
-                - read:user
+                - read:org
             JupyterHub:
               authenticator_class: github
         singleuser:
