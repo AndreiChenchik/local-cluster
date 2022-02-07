@@ -40,9 +40,13 @@ spec:
               client_secret: 74a15682a25ffe8d4b3e9ec4b7ca23190aa6698e
               oauth_callback_url: https://jupyter.chenchik.me/hub/oauth_callback
               allowed_organizations:
-                - AndreiChenchik
+                - enableops
               scope:
                 - read:org
+            Authenticator:
+              admin_users:
+                - AndreiChenchik
+              auto_login: true
             JupyterHub:
               authenticator_class: github
         singleuser:
