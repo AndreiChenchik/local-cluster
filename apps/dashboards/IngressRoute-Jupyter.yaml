@@ -1,0 +1,22 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+
+metadata:
+  name: jupyter-dashboard
+  namespace: jupyterhub
+
+spec:
+  entryPoints:
+    - websecure
+
+  routes:
+    - kind: Rule
+      match: Host(`jupyter.chenchik.me`)
+
+      services:
+        - name: proxy-public
+          namespace: jupyterhub
+          port: 80
+
+  tls:
+    certResolver: acme-http
