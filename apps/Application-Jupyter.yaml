@@ -42,7 +42,7 @@ spec:
               client_secret: 74a15682a25ffe8d4b3e9ec4b7ca23190aa6698e
               oauth_callback_url: https://jupyter.chenchik.me/hub/oauth_callback
               allowed_organizations:
-                - my-github-organization
+                - enableops
               scope:
                 - read:user
             JupyterHub:
