@@ -51,7 +51,7 @@ spec:
               authenticator_class: github
         singleuser:
           image:
-            name: jupyter/datascience-notebook
+            name: jupyter/tensorflow-notebook
             tag: 2022-02-07
         proxy:
           service:
