@@ -33,6 +33,20 @@ spec:
     helm:
       releaseName: jupyterhub
       values: |
+        hub:
+          config:
+            Authenticator:
+              auto_login: true
+            GitHubOAuthenticator:
+              client_id: 01017503416e3be48451
+              client_secret: 74a15682a25ffe8d4b3e9ec4b7ca23190aa6698e
+              oauth_callback_url: https://jupyter.chenchik.me/hub/oauth_callback
+              allowed_organizations:
+                - my-github-organization
+              scope:
+                - read:user
+            JupyterHub:
+              authenticator_class: github
         singleuser:
           image:
             name: jupyter/datascience-notebook
