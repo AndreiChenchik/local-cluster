@@ -20,3 +20,29 @@ spec:
 
   tls:
     certResolver: acme-http
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: jupyterhub-chain-authelia-auth
+  namespace: jupyterhub
+spec:
+  chain:
+    middlewares:
+      - name: jupyterhub-forwardauth-authelia
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: jupyterhub-forwardauth-authelia
+  namespace: jupyterhub
+spec:
+  forwardAuth:
+    address: >-
+      http://authelia.authelia.svc.cluster.local/api/verify?rd=https://auth.chenchik.me/
+    authResponseHeaders:
+      - Remote-User
+      - Remote-Name
+      - Remote-Email
+      - Remote-Groups
+    trustForwardHeader: true
