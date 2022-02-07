@@ -13,6 +13,9 @@ spec:
     - kind: Rule
       match: Host(`jupyter.chenchik.me`)
 
+      middlewares:
+        - name: jupyterhub-chain-authelia-auth
+
       services:
         - name: proxy-public
           namespace: jupyterhub
