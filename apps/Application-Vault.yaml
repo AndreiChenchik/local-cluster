@@ -33,15 +33,17 @@ spec:
       - CreateNamespace=true
 
   source:
-    chart: vault-bootstrap
+    chart: vault
     repoURL: https://helm.chenchik.me/
     targetRevision: ~0.0.1
     helm:
       releaseName: vault
       values: |
         vault:
-          ha.enabled: true
-          ha.replicas: 2
+          server:
+            ha:
+              enabled: true
+              replicas: 2
 
           jobs:
             init: true
