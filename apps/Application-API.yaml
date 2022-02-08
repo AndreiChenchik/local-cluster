@@ -48,8 +48,9 @@ spec:
           API_SECRETS_PATH: "/vault/secrets"
 
         jobs:
-          vault-k8s-role: true
-          vault-policy: true
+          vault:
+          k8sRoleCheck: true
+          policyCheck: true
 
         global:
           vault:
