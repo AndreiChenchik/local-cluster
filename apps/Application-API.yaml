@@ -49,8 +49,8 @@ spec:
 
         jobs:
           vault:
-          k8sRoleCheck: true
-          policyCheck: true
+            k8sRoleCheck: true
+            policyCheck: true
 
         global:
           vault:
