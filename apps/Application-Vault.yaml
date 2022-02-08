@@ -42,5 +42,7 @@ spec:
         vault:
           ha.enabled: true
           ha.replicas: 2
-        vault-init:
-          enabled: true
+
+          jobs:
+            init: true
+            unseal: true
