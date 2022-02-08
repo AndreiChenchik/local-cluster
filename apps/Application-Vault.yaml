@@ -46,3 +46,4 @@ spec:
           jobs:
             init: true
             unseal: true
+            enableK8sAuth: true
