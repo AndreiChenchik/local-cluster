@@ -40,11 +40,6 @@ spec:
       releaseName: vault
       values: |
         vault:
-          server:
-            ha:
-              enabled: true
-              replicas: 2
-
           jobs:
             init: true
             unseal: true
