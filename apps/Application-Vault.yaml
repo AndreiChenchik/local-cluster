@@ -47,12 +47,12 @@ spec:
               enableK8sAuth: true
               enableGithubAuth: true
               enableKVEngine: true
-              configureK8sRole: true
+              configureInjectRole: true
               spawnPolicies: true
               spawnRandomSecrets: true            
 
             kvEndpoint: secrets
-            
+
             githubAuth:
               org: enableops
               teamPolicies: |
