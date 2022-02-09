@@ -84,7 +84,7 @@ spec:
             init: true
             unseal: true
             enableK8sAuth: true
-            enableGitHubAuth: true
+            enableGithubAuth: true
             configureK8sRole: true
             enableKVEngine: true
             spawnPolicies: true
