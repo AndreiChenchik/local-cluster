@@ -41,11 +41,11 @@ spec:
       values: |
         vault:
           app:
-            vaultPolicy: test-policy
+            vaultPolicy: test-policy2
             vaultRole: test-role
             serviceAccount:
               name: service-account
-              namespace: super-space
+              namespace: super-space2
 
           jobs:
             init: true
