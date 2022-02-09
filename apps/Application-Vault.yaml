@@ -45,33 +45,15 @@ spec:
             github:
               org: enableops
               teamPolicies: |
-                [
-                  {
-                    "team": "dev_team",
-                    "policy": "gh-enableops-dev_team"
-                  }
-                ]
+                [{  "team": "dev_team",
+                    "policy": "gh-enableops-dev_team" }]
 
             policies: |
-              [
-                {
-                  "name": "gh-enableops-dev_team",
-                  "policy": {
-                    "path": {
-                      "secrets/*": {
-                        "capabilities": [
-                          "create",
-                          "read",
-                          "update",
-                          "delete",
-                          "list"
-                        ]
-                      }
-                    }
-                  }
-                }
-              ]
-              
+              [{ "name": "gh-enableops-dev_team",
+                  "policy": { "path": { "secrets/*": {
+                    "capabilities": ["create", "read", "update", "delete", "list"]
+                  }}}
+              }]
 
           app:
             vaultPolicy: test-policy24
@@ -81,16 +63,11 @@ spec:
               namespace: super-space2
 
             secrets: |
-              [
-                {
-                  "path": "secrets/app-secret",
-                  "keys": [
-                    "first",
-                    "second",
-                    "other"
-                  ]
-                }
-              ]
+              [{  "path": "secrets/app-secret",
+                  "keys": [ "first",
+                            "second",
+                            "other" ]
+              }]
 
           jobs:
             init: true
