@@ -49,7 +49,7 @@ spec:
                     "policy": "gh-enableops-dev_team" }]
 
             policies: |
-              [{ "name": "gh-enableops-dev_team",
+              [{  "name": "gh-enableops-dev_team",
                   "policy": { "path": { "secrets/*": {
                     "capabilities": ["create", "read", "update", "delete", "list"]
                   }}}
