@@ -47,11 +47,7 @@ spec:
               enableK8sAuth: true
               enableGithubAuth: true
               enableKVEngine: true
-              configureInjectRole: true
-              spawnPolicies: true
-              spawnRandomSecrets: true            
-
-            kvEndpoint: secrets
+              spawnPolicies: true          
 
             githubAuth:
               org: enableops
@@ -65,26 +61,3 @@ spec:
                     "capabilities": ["create", "read", "update", "delete", "list"]
                   }}}
               }]
-
-            randomSecrets: |
-              [{  "path": "secrets/app-secret",
-                  "keys": [ "first",
-                            "second",
-                            "other" ]
-              }]
-
-          app:            
-            injectSecrets:
-              toEnv: false
-              toFiles: false
-
-              pathToSecret: "somefolder/somesecret"
-              keysToInject:
-                - first
-                - second
-              
-              mountPath: /secrets
-
-              policy: test-policy24
-              role: test-role
-              serviceAccount: service-account1
