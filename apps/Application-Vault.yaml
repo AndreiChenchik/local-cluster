@@ -41,7 +41,8 @@ spec:
       values: |
         vault:
           app:
-            vaultRole: test-policy
+            vaultPolicy: test-policy
+            vaultRole: test-role
             serviceAccount:
               name: service-account
               namespace: super-space
