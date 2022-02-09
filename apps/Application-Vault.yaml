@@ -40,7 +40,14 @@ spec:
       releaseName: vault
       values: |
         vault:
+          app:
+            vaultRole: test-policy
+            serviceAccount:
+              name: service-account
+              namespace: super-space
+
           jobs:
             init: true
             unseal: true
             enableK8sAuth: true
+            configureK8sRole: true
