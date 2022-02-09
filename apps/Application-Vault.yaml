@@ -42,6 +42,36 @@ spec:
         vault:
           server:
             kvEndpoint: some-other-endpoint
+            github:
+              org: enableops
+              teamPolicies: |
+                [
+                  {
+                    "team": "dev_team",
+                    "policy": "gh-enableops-dev_team"
+                  }
+                ]
+
+            policies: |
+              [
+                {
+                  "name": "gh-enableops-dev_team",
+                  "policy": {
+                    "path": {
+                      "secrets/*": {
+                        "capabilities": [
+                          "create",
+                          "read",
+                          "update",
+                          "delete",
+                          "list"
+                        ]
+                      }
+                    }
+                  }
+                }
+              ]
+              
 
           app:
             vaultPolicy: test-policy24
@@ -54,5 +84,7 @@ spec:
             init: true
             unseal: true
             enableK8sAuth: true
+            enableGitHubAuth: true
             configureK8sRole: true
             enableKVEngine: true
+            spawnPolicies: true
