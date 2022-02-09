@@ -41,7 +41,7 @@ spec:
       values: |
         vault:
           server:
-            kvEndpoint: some-endpoint
+            kvEndpoint: some-other-endpoint
 
           app:
             vaultPolicy: test-policy24
