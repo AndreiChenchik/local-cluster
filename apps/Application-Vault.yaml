@@ -40,6 +40,9 @@ spec:
       releaseName: vault
       values: |
         vault:
+          server:
+            kvEndpoint: some-endpoint
+
           app:
             vaultPolicy: test-policy24
             vaultRole: test-role
@@ -52,3 +55,4 @@ spec:
             unseal: true
             enableK8sAuth: true
             configureK8sRole: true
+            enableKVEngine: true
