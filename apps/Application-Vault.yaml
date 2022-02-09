@@ -41,8 +41,19 @@ spec:
       values: |
         vault:
           server:
-            kvEndpoint: some-other-endpoint
-            github:
+            configure:
+              init: true
+              unseal: true
+              enableK8sAuth: true
+              enableGithubAuth: true
+              enableKVEngine: true
+              configureK8sRole: true
+              spawnPolicies: true
+              spawnRandomSecrets: true            
+
+            kvEndpoint: secrets
+            
+            githubAuth:
               org: enableops
               teamPolicies: |
                 [{  "team": "dev_team",
@@ -55,26 +66,25 @@ spec:
                   }}}
               }]
 
-          app:
-            vaultPolicy: test-policy24
-            vaultRole: test-role
-            serviceAccount:
-              name: service-account1
-              namespace: super-space2
-
-            secrets: |
+            randomSecrets: |
               [{  "path": "secrets/app-secret",
                   "keys": [ "first",
                             "second",
                             "other" ]
               }]
 
-          jobs:
-            init: true
-            unseal: true
-            enableK8sAuth: true
-            enableGithubAuth: true
-            configureK8sRole: true
-            enableKVEngine: true
-            spawnPolicies: true
-            spawnRandomSecrets: true
+          app:            
+            injectSecrets:
+              toEnv: false
+              toFiles: false
+
+              pathToSecret: "somefolder/somesecret"
+              keysToInject:
+                - first
+                - second
+              
+              mountPath: /secrets
+
+              policy: test-policy24
+              role: test-role
+              serviceAccount: service-account1
