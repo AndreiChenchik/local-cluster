@@ -58,6 +58,6 @@ spec:
             policies: |
               [{  "name": "gh-enableops-dev_team",
                   "policy": { "path": { "secrets/*": {
-                    "capabilities": ["create", "read", "update", "delete", "list"]
+                    "capabilities": [ "create", "read", "update", "delete", "list" ]
                   }}}
               }]
