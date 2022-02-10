@@ -34,7 +34,7 @@ spec:
 
   source:
     chart: vault
-    repoURL: https://helm.chenchik.me
+    repoURL: https://raw.githubusercontent.com/AndreiChenchik/helm-charts/gh-pages
     targetRevision: "~0.0.43"
     helm:
       releaseName: vault
