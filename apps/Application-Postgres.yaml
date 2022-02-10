@@ -36,4 +36,4 @@ spec:
         vault:
           server:
             configure:
-              unseal: true
+              unseal: false
