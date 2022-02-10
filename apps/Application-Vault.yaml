@@ -47,7 +47,8 @@ spec:
               enableK8sAuth: true
               enableGithubAuth: true
               enableKVEngine: true
-              spawnPolicies: true          
+              spawnPolicies: true   
+              spawnRandomSecrets: true       
 
             githubAuth:
               org: enableops
@@ -55,9 +56,26 @@ spec:
                 [{  "team": "dev_team",
                     "policy": "gh-enableops-dev_team" }]
 
+            k8roles: |
+              [{  "role": "gh-enableops-dev_team",
+                  "policy": "inject-policy",
+                  "serviceAccount": "test",
+                  "namespace": "test"
+              }]
+
             policies: |
               [{  "name": "gh-enableops-dev_team",
                   "policy": { "path": { "secrets/*": {
                     "capabilities": [ "create", "read", "update", "delete", "list" ]
                   }}}
+              },
+              {   "name": "postgres-inject",
+                  "policy": { "path": { "secrets/data/db": {
+                    "capabilities": [ "read" ]
+                  }}}
+              }]
+
+            randomSecrets: |
+              [{  "path": "secrets/db",
+                  "keys": [ "POSTGRES_PASSWORD" ]
               }]
