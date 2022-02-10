@@ -34,7 +34,7 @@ spec:
 
   source:
     chart: vault
-    repoURL: https://helm.chenchik.me/
+    repoURL: https://storage.googleapis.com/helm.chenchik.me
     targetRevision: ~0.0.1
     helm:
       releaseName: vault
