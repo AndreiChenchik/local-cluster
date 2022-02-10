@@ -57,10 +57,10 @@ spec:
                     "policy": "gh-enableops-dev_team" }]
 
             k8roles: |
-              [{  "role": "gh-enableops-dev_team",
-                  "policy": "inject-policy",
-                  "serviceAccount": "test",
-                  "namespace": "test"
+              [{  "role": "postgres-vaultinject",
+                  "policy": "postgres-vaultinject",
+                  "serviceAccount": "postgres-vaultinject",
+                  "namespace": "enableops-api"
               }]
 
             policies: |
@@ -69,7 +69,7 @@ spec:
                     "capabilities": [ "create", "read", "update", "delete", "list" ]
                   }}}
               },
-              {   "name": "postgres-inject",
+              {   "name": "postgres-vaultinject",
                   "policy": { "path": { "secrets/data/db": {
                     "capabilities": [ "read" ]
                   }}}
