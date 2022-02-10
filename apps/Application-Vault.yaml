@@ -25,9 +25,9 @@ spec:
         - /webhooks/0/clientConfig/caBundle
 
   syncPolicy:
-    # automated:
-    #   prune: true
-    #   selfHeal: true
+    automated:
+      prune: true
+      selfHeal: true
     syncOptions:
       - Validate=true
       - CreateNamespace=true
