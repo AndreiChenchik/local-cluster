@@ -32,8 +32,3 @@ spec:
     targetRevision: "*"
     helm:
       releaseName: postgres
-      values: |
-        vault:
-          server:
-            configure:
-              unseal: true
