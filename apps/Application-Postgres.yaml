@@ -23,7 +23,7 @@ spec:
       prune: true
       selfHeal: true
     syncOptions:
-      - Validate=true
+      - Validate=false
       - CreateNamespace=true
 
   source:
