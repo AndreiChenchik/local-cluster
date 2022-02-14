@@ -40,4 +40,4 @@ spec:
 
               pathToSecret: "db"
               mountPath: /secrets
-              policy: postgres-inject
+              policy: postgres-vaultinject
