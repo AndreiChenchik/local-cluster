@@ -71,6 +71,7 @@ spec:
             injectSecrets:
               toFiles: true
 
-              pathToSecret: api
+              secrets: 
+                - path: api
               mountPath: /secrets
               policy: enableops-api-inject
