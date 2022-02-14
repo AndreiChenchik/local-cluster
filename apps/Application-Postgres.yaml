@@ -32,3 +32,12 @@ spec:
     targetRevision: "*"
     helm:
       releaseName: postgres
+      values: |
+        vault:
+          app:
+            injectSecrets:
+              toFiles: true
+
+              pathToSecret: "db"
+              mountPath: /secrets
+              policy: postgres-inject
