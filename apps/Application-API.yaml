@@ -29,7 +29,7 @@ spec:
   source:
     chart: web-app
     repoURL: https://helm.chenchik.me/
-    targetRevision: "~0.3.0-0"
+    targetRevision: "~0.4.0-0"
     helm:
       releaseName: enableops-api
       values: |
@@ -45,22 +45,13 @@ spec:
 
         config:
           API_ENV_STATE: dev
-          API_SECRETS_PATH: "/vault/secrets"
+          API_SECRETS_PATH: "/secrets"
 
-        jobs:
-          vault:
-            k8sRoleCheck: true
-            policyCheck: true
+        vault:
+          app:
+            injectSecrets:
+              toFiles: true
 
-        global:
-          vault:
-            secretPath: "api/local"
-
-            mountSecret:
-              enabled: true
-              path: "/vault/secrets"
-
-            server:
-              token:
-                secretName: vault-token
-                secretKey: token
+              pathToSecret: "api"
+              mountPath: "/secrets"
+              policy: enableops-api-inject
