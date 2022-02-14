@@ -35,7 +35,7 @@ spec:
       values: |
         image:
           repository: "eu.gcr.io/enableops-io/api"
-          tag: "0.8.2"
+          tag: "0.8.5"
           pullSecret: "eu-gcr-io"
 
         ingressHost: eops-api.chenchik.me
