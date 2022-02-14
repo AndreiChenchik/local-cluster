@@ -61,6 +61,11 @@ spec:
                   "policy": "postgres-vaultinject",
                   "serviceAccount": "postgres-vaultinject",
                   "namespace": "enableops-api"
+              },
+              {   "role": "enableops-api-vaultinject",
+                  "policy": "enableops-api-vaultinject",
+                  "serviceAccount": "enableops-api-vaultinject",
+                  "namespace": "enableops-api"
               }]
 
             policies: |
@@ -71,6 +76,11 @@ spec:
               },
               {   "name": "postgres-vaultinject",
                   "policy": { "path": { "secrets/data/db": {
+                    "capabilities": [ "read" ]
+                  }}}
+              },
+              {   "name": "enableops-api-vaultinject",
+                  "policy": { "path": { "secrets/data/api": {
                     "capabilities": [ "read" ]
                   }}}
               }]
