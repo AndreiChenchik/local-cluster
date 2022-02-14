@@ -46,12 +46,31 @@ spec:
         config:
           API_ENV_STATE: dev
           API_SECRETS_PATH: "/secrets"
+          API_PROJECT_NAME: "enableOps API [Stage]"
+          API_PATH__AUTH_MODULE: /auth
+          API_PATH__AUTH_REDIRECT: /start
+          API_PATH__AUTH_TOKEN: /access_token
+          API_SECURITY__JWT_ALGORITHM: HS256
+          API_SECURITY__ACCESS_TOKEN_EXPIRE_MINUTES: 30
+          API_SECURITY__BACKEND_CORS_ORIGINS: https://eops.chenchik.me
+          API_OAUTH__AUTH_URI: https://accounts.google.com/o/oauth2/auth
+          API_OAUTH__TOKEN_URI: https://accounts.google.com/o/oauth2/token
+          API_OAUTH__ACCESS_TYPE: offline
+          API_OAUTH__PROMPT_TYPE: consent
+          API_OAUTH__SCOPES: "openid,https://www.googleapis.com/auth/userinfo.profile,https://www.googleapis.com/auth/userinfo.email,https://www.googleapis.com/auth/cloudplatformprojects.readonly"
+          API_OAUTH__REDIRECT_HOST: https://eops-api.chenchik.me
+          API_OAUTH__SWAGGER_REDIRECT_PATH: /docs/oauth2-redirect
+          API_GITHUB__WORKFLOW_REPO: enableops/terraform
+          API_GITHUB__WORKFLOW_REF: dev
+          API_GITHUB__WORKFLOW_CUSTOMERS: add-customer.yml
+          API_GITHUB__WORKFLOW_TERRAFORM: terraform.yaml
+          API_DB__HEROKU_APP_ID_OR_NAME: enableops-dev-api
 
         vault:
           app:
             injectSecrets:
               toFiles: true
 
-              pathToSecret: "api"
-              mountPath: "/secrets"
+              pathToSecret: api
+              mountPath: /secrets
               policy: enableops-api-inject
