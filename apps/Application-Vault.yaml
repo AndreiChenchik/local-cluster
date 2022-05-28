@@ -60,12 +60,12 @@ spec:
               [{  "role": "postgres-vaultinject",
                   "policy": "postgres-vaultinject",
                   "serviceAccount": "postgres-vaultinject",
-                  "namespace": "enableops-api"
+                  "namespace": "enableops"
               },
               {   "role": "enableops-api-vaultinject",
                   "policy": "enableops-api-vaultinject",
                   "serviceAccount": "enableops-api-vaultinject",
-                  "namespace": "enableops-api"
+                  "namespace": "enableops"
               }]
 
             policies: |

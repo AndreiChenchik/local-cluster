@@ -16,7 +16,7 @@ spec:
 
   destination:
     server: https://kubernetes.default.svc
-    namespace: enableops-api
+    namespace: enableops
 
   syncPolicy:
     automated:
@@ -73,5 +73,6 @@ spec:
 
               secrets: 
                 - path: api
+                - path: db
               mountPath: /secrets
               policy: enableops-api-inject

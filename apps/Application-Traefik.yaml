@@ -38,22 +38,5 @@ spec:
           - --log.level=DEBUG
           - --api=true
           - --api.dashboard=true
-          - --certificatesresolvers.acme-http.acme.dnsChallenge.provider=cloudflare
-          - --certificatesresolvers.acme-http.acme.storage=/data/acme.json
-          - --certificatesresolvers.acme-http.acme.email=andrei@chenchik.me
-        ports:
-          web:
-            redirectTo: websecure
-        env:
-          - name: CLOUDFLARE_EMAIL
-            valueFrom:
-              secretKeyRef:
-                key: email
-                name: cloudflare-api-credentials
-          - name: CLOUDFLARE_API_KEY
-            valueFrom:
-              secretKeyRef:
-                key: apiKey
-                name: cloudflare-api-credentials
         service:
           type: LoadBalancer
