@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "dev-cluster"
+name = "local-cluster"
 version = "0.1.0"
 description = ""
 authors = ["Andrei Chenchik <andrei@chenchik.me>"]
