@@ -1,0 +1,18 @@
+apiVersion: k3d.io/v1alpha4
+kind: Simple
+metadata:
+  name: local-cluster
+servers: 1
+agents: 2
+volumes:
+  - volume: /Volumes/Cluster/PVC:/var/lib/rancher/k3s/storage # change first part to persist local-path volumes
+    nodeFilters:
+      - server:0
+      - agent:*
+ports:
+  - port: "127.0.0.1:80:80"
+    nodeFilters:
+      - loadbalancer
+registries:
+  create:
+    name: localhost
