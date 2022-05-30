@@ -9,105 +9,108 @@ from pulumi_kubernetes.helm.v3 import (
     RepositoryOptsArgs,
 )
 from pulumi_kubernetes.core.v1 import Namespace, Secret
+import pulumi_kubernetes as k8s
+
+flux_components = k8s.yaml.ConfigFile('flux_components', 'clusters/local/flux-system/gotk-components.yaml')
+flux_sync = k8s.yaml.ConfigFile('flux_sync', 'clusters/local/flux-system/gotk-sync.yaml')
+
+# class Config(BaseSettings):
+#     ARGOCD_PASSWORD: bytes
+#     AUTHELIA_PASSWORD: str
+#     GCR_DOCKERJSON_TOKEN: str
+
+#     class Config:
+#         case_sensitive = True
+#         env_prefix: str = "CLUSTER_"
+
+# settings = Config()
 
 
-class Config(BaseSettings):
-    ARGOCD_PASSWORD: bytes
-    AUTHELIA_PASSWORD: str
-    GCR_DOCKERJSON_TOKEN: str
+# # Secrets
+# # apps/Application-API.yaml
+# enableops_api_namespace = Namespace(
+#     "enableops_namespace", metadata={"name": "enableops"}
+# )
+# eugcrio_pullsecret = Secret(
+#     "eugcrio_pullsecret",
+#     data={".dockerconfigjson": settings.GCR_DOCKERJSON_TOKEN},
+#     metadata={"name": "eu-gcr-io", "namespace": "enableops"},
+#     type="kubernetes.io/dockerconfigjson",
+# )
 
-    class Config:
-        case_sensitive = True
-        env_prefix: str = "CLUSTER_"
+# # apps/Application-Authelia.yaml
+# argon2ph = PasswordHasher()
+# authelia_password_hash = argon2ph.hash(settings.AUTHELIA_PASSWORD)
+# authelia_users_database = f"""
+# users:
+#   andrei:
+#     displayname: "Andrei Chenchik"
+#     password: "{authelia_password_hash}"
+#     email: andrei@chenchik.me
+# """
 
-settings = Config()
+# authelia_namespace = Namespace(
+#     "authelia_namespace", metadata={"name": "authelia"}
+# )
 
+# authelia_users = Secret(
+#     "authelia_users",
+#     string_data={"users_database.yaml": authelia_users_database},
+#     metadata={"name": "authelia-users", "namespace": "authelia"},
+# )
 
-# Secrets
-# apps/Application-API.yaml
-enableops_api_namespace = Namespace(
-    "enableops_namespace", metadata={"name": "enableops"}
-)
-eugcrio_pullsecret = Secret(
-    "eugcrio_pullsecret",
-    data={".dockerconfigjson": settings.GCR_DOCKERJSON_TOKEN},
-    metadata={"name": "eu-gcr-io", "namespace": "enableops"},
-    type="kubernetes.io/dockerconfigjson",
-)
+# # ArgoCD
+# password_hash = bcrypt.hashpw(settings.ARGOCD_PASSWORD, bcrypt.gensalt())
+# argocd_password = password_hash.decode()
+# modify_time = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%S%Z")
 
-# apps/Application-Authelia.yaml
-argon2ph = PasswordHasher()
-authelia_password_hash = argon2ph.hash(settings.AUTHELIA_PASSWORD)
-authelia_users_database = f"""
-users:
-  andrei:
-    displayname: "Andrei Chenchik"
-    password: "{authelia_password_hash}"
-    email: andrei@chenchik.me
-"""
+# root_app = {
+#     "name": "root",
+#     "namespace": "argocd",
+#     "project": "default",
+#     "destination": {
+#         "server": "https://kubernetes.default.svc",
+#     },
+#     "syncPolicy": {
+#         "automated": {
+#             "prune": True,
+#             "selfHeal": True,
+#             "allowEmpty": True,
+#         },
+#         "syncOptions": ["Validate=true", "CreateNamespace=true"],
+#     },
+#     "source": {
+#         "repoURL": "https://github.com/AndreiChenchik/local-cluster",
+#         "path": "apps",
+#         "targetRevision": "HEAD",
+#     },
+# }
 
-authelia_namespace = Namespace(
-    "authelia_namespace", metadata={"name": "authelia"}
-)
+# release_values = {
+#     "configs": {
+#         "secret": {
+#             "argocdServerAdminPassword": argocd_password,
+#             "argocdServerAdminPasswordMtime": modify_time,
+#         }
+#     },
+#     "server": {
+#         "extraArgs": ["--insecure"],
+#         "additionalApplications": [root_app],
+#     },
+#     "controller": {"args": {"appResyncPeriod": 60}},
+# }
 
-authelia_users = Secret(
-    "authelia_users",
-    string_data={"users_database.yaml": authelia_users_database},
-    metadata={"name": "authelia-users", "namespace": "authelia"},
-)
+# argocd_namespace = Namespace("argocd", metadata={"name": "argocd"})
 
-# ArgoCD
-password_hash = bcrypt.hashpw(settings.ARGOCD_PASSWORD, bcrypt.gensalt())
-argocd_password = password_hash.decode()
-modify_time = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%S%Z")
+# release_args = ReleaseArgs(
+#     chart="argo-cd",
+#     repository_opts=RepositoryOptsArgs(
+#         repo="https://argoproj.github.io/argo-helm"
+#     ),
+#     version="3.33.1",
+#     name="argocd",
+#     namespace=argocd_namespace.metadata["name"],
+#     values=release_values,
+# )
 
-root_app = {
-    "name": "root",
-    "namespace": "argocd",
-    "project": "default",
-    "destination": {
-        "server": "https://kubernetes.default.svc",
-    },
-    "syncPolicy": {
-        "automated": {
-            "prune": True,
-            "selfHeal": True,
-            "allowEmpty": True,
-        },
-        "syncOptions": ["Validate=true", "CreateNamespace=true"],
-    },
-    "source": {
-        "repoURL": "https://github.com/AndreiChenchik/local-cluster",
-        "path": "apps",
-        "targetRevision": "HEAD",
-    },
-}
-
-release_values = {
-    "configs": {
-        "secret": {
-            "argocdServerAdminPassword": argocd_password,
-            "argocdServerAdminPasswordMtime": modify_time,
-        }
-    },
-    "server": {
-        "extraArgs": ["--insecure"],
-        "additionalApplications": [root_app],
-    },
-    "controller": {"args": {"appResyncPeriod": 60}},
-}
-
-argocd_namespace = Namespace("argocd", metadata={"name": "argocd"})
-
-release_args = ReleaseArgs(
-    chart="argo-cd",
-    repository_opts=RepositoryOptsArgs(
-        repo="https://argoproj.github.io/argo-helm"
-    ),
-    version="3.33.1",
-    name="argocd",
-    namespace=argocd_namespace.metadata["name"],
-    values=release_values,
-)
-
-argocd = Release("argocd", args=release_args)
+# argocd = Release("argocd", args=release_args)
