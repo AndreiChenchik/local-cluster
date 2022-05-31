@@ -6,7 +6,7 @@ metadata:
 spec:
   chart:
     spec:
-      chart: web-app
+      chart: postgres
       sourceRef:
         kind: HelmRepository
         name: chenchik-helm
