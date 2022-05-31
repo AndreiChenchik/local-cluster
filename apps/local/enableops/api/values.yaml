@@ -21,7 +21,7 @@ spec:
     config:
       API_ENV_STATE: dev
       API_SECRETS_PATH: "/secrets"
-      API_PROJECT_NAME: "enableOps API [Stage]"
+      API_PROJECT_NAME: "enableOps API [DEV]"
       API_PATH__AUTH_MODULE: /auth
       API_PATH__AUTH_REDIRECT: /start
       API_PATH__AUTH_TOKEN: /access_token
