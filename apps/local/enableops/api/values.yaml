@@ -10,7 +10,7 @@ spec:
   values:
     image:
       repository: "k3d-registry:5000/enableops/api"
-      tag: "v0.8.5-DEV"
+      tag: "latest"
 
     ingressHost: eops-api.chenchik.me
     ingressEntryPoint: web
