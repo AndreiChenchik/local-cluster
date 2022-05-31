@@ -19,14 +19,14 @@ spec:
       targetPort: 8000
 
     config:
-      API_ENV_STATE: dev
+      API_ENV_STATE: debug
       API_SECRETS_PATH: "/secrets"
       API_PROJECT_NAME: "enableOps API [DEV]"
       API_PATH__AUTH_MODULE: /auth
       API_PATH__AUTH_REDIRECT: /start
       API_PATH__AUTH_TOKEN: /access_token
       API_SECURITY__JWT_ALGORITHM: HS256
-      API_SECURITY__ACCESS_TOKEN_EXPIRE_MINUTES: 30
+      API_SECURITY__ACCESS_TOKEN_EXPIRE_MINUTES: 20160
       API_SECURITY__BACKEND_CORS_ORIGINS: https://eops.chenchik.me
       API_OAUTH__AUTH_URI: https://accounts.google.com/o/oauth2/auth
       API_OAUTH__TOKEN_URI: https://accounts.google.com/o/oauth2/token
