@@ -1,7 +1,0 @@
-apiVersion: source.toolkit.fluxcd.io/v1beta2
-kind: HelmRepository
-metadata:
-  name: traefik-helm
-spec:
-  interval: 60m
-  url: https://helm.traefik.io/traefik
