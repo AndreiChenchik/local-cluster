@@ -4,4 +4,4 @@ namespace: enableops
 resources:
   - ../../../base/enableops/api
 patchesStrategicMerge:
-  - api-values.yaml
+  - values.yaml
