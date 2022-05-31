@@ -5,7 +5,7 @@ metadata:
 servers: 1
 agents: 2
 volumes:
-  - volume: /Volumes/Cluster/PVC:/var/lib/rancher/k3s/storage # change first part to persist local-path volumes
+  - volume: /Volumes/Cluster/PVC:/var/lib/rancher/k3s/storage # persist PVC on host
     nodeFilters:
       - server:0
       - agent:*
@@ -15,4 +15,6 @@ ports:
       - loadbalancer
 registries:
   create:
-    name: localhost
+    name: k3d-registry
+    host: "127.0.0.1"
+    hostPort: "5000"
