@@ -58,9 +58,10 @@ spec:
               }}}
           },
           {   "name": "enableops-api-vaultinject",
-              "policy": { "path": { "secrets/data/api": {
-                "capabilities": [ "read" ]
-              }}}
+              "policy": { "path": { 
+                "secrets/data/api": { "capabilities": [ "read" ] },
+                "secrets/data/db": { "capabilities": [ "read" ] }
+              }}
           }]
 
         randomSecrets: |
