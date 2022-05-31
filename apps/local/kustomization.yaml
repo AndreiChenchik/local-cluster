@@ -3,4 +3,4 @@ kind: Kustomization
 resources:
   - enableops/api
   - enableops/postgres
-  - ../../base/enableops/namespace.yaml
+  - ../base/enableops/namespace.yaml
