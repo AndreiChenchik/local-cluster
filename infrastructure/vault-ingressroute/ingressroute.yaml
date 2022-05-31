@@ -8,11 +8,9 @@ metadata:
 spec:
   entryPoints:
     - web
-
   routes:
     - kind: Rule
       match: Host(`vault.chenchik.me`)
-
       services:
         - name: vault
           namespace: vault
