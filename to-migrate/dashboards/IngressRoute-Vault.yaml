@@ -17,6 +17,3 @@ spec:
         - name: vault
           namespace: vault
           port: 8200
-
-  tls:
-    certResolver: acme-http
