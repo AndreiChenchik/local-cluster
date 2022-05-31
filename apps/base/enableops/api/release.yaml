@@ -12,7 +12,4 @@ spec:
         kind: HelmRepository
         name: chenchik-helm
         namespace: flux-system
-  interval: 5m
-  install:
-    remediation:
-      retries: 3
+  interval: 1m
