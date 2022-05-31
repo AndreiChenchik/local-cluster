@@ -48,6 +48,5 @@ spec:
 
           secrets:
             - path: api
-            - path: db
           mountPath: /secrets
           policy: enableops-api-inject
