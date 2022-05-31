@@ -1,0 +1,18 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: api
+  namespace: enableops
+spec:
+  releaseName: enableops-api
+  chart:
+    spec:
+      chart: web-app
+      sourceRef:
+        kind: HelmRepository
+        name: chenchik-helm
+        namespace: flux-system
+  interval: 5m
+  install:
+    remediation:
+      retries: 3
