@@ -4,3 +4,4 @@ namespace: enableops
 resources:
   - api
   - postgres
+  - namespace.yaml
