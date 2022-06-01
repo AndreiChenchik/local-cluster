@@ -3,5 +3,4 @@ kind: Kustomization
 namespace: flux-system
 resources:
   - chenchik-helm.yaml
-  - traefik-helm.yaml
   - authelia-helm.yaml
