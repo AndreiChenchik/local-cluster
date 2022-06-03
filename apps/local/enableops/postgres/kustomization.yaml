@@ -3,5 +3,6 @@ kind: Kustomization
 namespace: enableops
 resources:
   - ../../../base/enableops/postgres
+  - service.yaml
 patchesStrategicMerge:
   - values.yaml
