@@ -3,7 +3,7 @@ kind: Simple
 metadata:
   name: local
 servers: 1
-agents: 2
+agents: 1
 volumes:
   - volume: /Volumes/Cluster/PVC:/var/lib/rancher/k3s/storage # persist PVC on host
     nodeFilters:
@@ -11,6 +11,9 @@ volumes:
       - agent:*
 ports:
   - port: "127.0.0.1:80:80"
+    nodeFilters:
+      - loadbalancer
+  - port: "127.0.0.1:5432:5432"
     nodeFilters:
       - loadbalancer
 registries:
