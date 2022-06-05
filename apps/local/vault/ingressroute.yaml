@@ -1,10 +1,7 @@
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
-
 metadata:
   name: vault-dashboard
-  namespace: vault
-
 spec:
   entryPoints:
     - web
@@ -13,5 +10,4 @@ spec:
       match: Host(`vault.chenchik.me`)
       services:
         - name: vault
-          namespace: vault
           port: 8200

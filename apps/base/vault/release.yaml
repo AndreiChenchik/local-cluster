@@ -1,0 +1,23 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: vault
+spec:
+  chart:
+    spec:
+      chart: vault
+      sourceRef:
+        kind: HelmRepository
+        name: chenchik-helm
+        namespace: flux-system
+      version: "~0.0.43"
+  interval: 1m0s
+  install:
+    remediation:
+      retries: -1
+  values:
+    vault:
+      server:
+        configure:
+          init: true
+          unseal: true

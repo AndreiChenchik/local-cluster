@@ -3,5 +3,7 @@ kind: Kustomization
 namespace: vault
 resources:
   - namespace.yaml
-  - release.yaml
+  - ../../base/vault
   - ingressroute.yaml
+patchesStrategicMerge:
+  - values.yaml
