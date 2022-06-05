@@ -8,14 +8,14 @@ import (
 func main() {
 	pulumi.Run(func(ctx *pulumi.Context) error {
 		_, err := yaml.NewConfigFile(ctx, "fluxComponents", &yaml.ConfigFileArgs{
-			File: "infrastructure/flux-system/gotk-components.yaml",
+			File: "cluster/local/flux-system/gotk-components.yaml",
 		})
 		if err != nil {
 			return err
 		}
 
 		_, err = yaml.NewConfigFile(ctx, "fluxSync", &yaml.ConfigFileArgs{
-			File: "infrastructure/flux-system/gotk-sync.yaml",
+			File: "cluster/local/flux-system/gotk-sync.yaml",
 		})
 		if err != nil {
 			return err
