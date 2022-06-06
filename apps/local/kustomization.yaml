@@ -4,4 +4,4 @@ resources:
   - enableops
   - vault
   - minio
-  - minio-localhost-service
+#  - minio-localhost-service
