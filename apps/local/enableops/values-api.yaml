@@ -65,7 +65,7 @@ spec:
       API_GITHUB__WORKFLOW_TERRAFORM: terraform.yaml
       API_DB__HEROKU_APP_ID_OR_NAME: enableops-dev-api
       API_DB__URI: sqlite:///.data/api.db
-      litestream.yml:
+      litestream.yml: |-
         dbs:
           - path: /usr/src/app/.data/api.db
             replicas:
