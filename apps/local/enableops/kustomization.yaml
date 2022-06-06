@@ -7,4 +7,4 @@ resources:
   - service-postgres.yaml
 patchesStrategicMerge:
   - values-api.yaml
-  - values-postgres.yaml
+#  - values-postgres.yaml
