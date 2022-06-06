@@ -23,7 +23,7 @@ spec:
         volumeMounts:
           - name: data
             mountPath: /usr/src/app/.data
-          - name: enableops-api
+          - name: config
             mountPath: /etc/litestream.yml
             subPath: litestream.yml
         env:
