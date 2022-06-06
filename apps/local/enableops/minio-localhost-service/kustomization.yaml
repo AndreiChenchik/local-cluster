@@ -3,4 +3,4 @@ kind: Kustomization
 namespace: localhost
 resources:
   - namespace.yaml
-  - minio-service.yaml
+  - service.yaml
