@@ -11,11 +11,41 @@ spec:
       repository: "k3d-registry:5000/enableops/api"
       tag: "latest"
 
+    initContainers:
+      - name: init-litestream
+        image: litestream/litestream:0.3.8
+        args:
+          - "restore"
+          - "-if-db-not-exists"
+          - "-if-replica-exists"
+          - "-v"
+          - "/usr/src/app/.data/api.db"
+        volumeMounts:
+          - name: data
+            mountPath: /usr/src/app/.data
+          - name: enableops-api
+            mountPath: /etc/litestream.yml
+            subPath: litestream.yml
+        env:
+          - name: LITESTREAM_ACCESS_KEY_ID
+            valueFrom:
+              secretKeyRef:
+                name: litestream
+                key: LITESTREAM_ACCESS_KEY_ID
+          - name: LITESTREAM_SECRET_ACCESS_KEY
+            valueFrom:
+              secretKeyRef:
+                name: litestream
+                key: LITESTREAM_SECRET_ACCESS_KEY
+
     ingressHost: eops-api.chenchik.me
     ingressEntryPoint: web
 
     service:
       targetPort: 8000
+
+    volumePath: /usr/src/app/.data
+    volumeName: data
 
     config:
       API_ENV_STATE: debug
@@ -39,6 +69,12 @@ spec:
       API_GITHUB__WORKFLOW_CUSTOMERS: add-customer.yml
       API_GITHUB__WORKFLOW_TERRAFORM: terraform.yaml
       API_DB__HEROKU_APP_ID_OR_NAME: enableops-dev-api
+      API_DB__URI: sqlite:///.data/api.db
+      litestream.yml: |-
+        dbs:
+          - path: /usr/src/app/.data/api.db
+            replicas:
+              - url: s3://minio.minio:9000/db
 
     vault:
       app:
