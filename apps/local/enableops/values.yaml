@@ -34,8 +34,8 @@ spec:
                 key: LITESTREAM_SECRET_ACCESS_KEY
     
     additionalContainers:
-      - name: "k3d-registry:5000/fork/litestream"
-        image: litestream/litestream:0.3.8
+      - name: litestream
+        image: "k3d-registry:5000/fork/litestream"
         args: ['replicate']
         volumeMounts:
         - name: data
