@@ -69,7 +69,7 @@ spec:
         dbs:
           - path: /usr/src/app/.data/api.db
             replicas:
-              - url: s3://minio.localhost:9000/api.db
+              - url: s3://api.minio.localhost:9000/api.db
 
     vault:
       app:
