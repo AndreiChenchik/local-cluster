@@ -4,3 +4,4 @@ namespace: flux-system
 resources:
   - chenchik-helm.yaml
   - authelia-helm.yaml
+  - minio-helm.yaml
