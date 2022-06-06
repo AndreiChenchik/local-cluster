@@ -4,6 +4,5 @@ namespace: enableops
 resources:
   - namespace.yaml
   - ../../base/enableops
-  - minio-localhost-service
 patchesStrategicMerge:
-  - values-api.yaml
+  - values.yaml
