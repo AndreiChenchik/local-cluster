@@ -5,7 +5,7 @@ metadata:
 spec:
   chart:
     spec:
-      version: "~0.4.0-0"
+      version: "0.4.8"
   values:
     image:
       repository: "k3d-registry:5000/enableops/api"
