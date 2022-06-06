@@ -5,11 +5,36 @@ metadata:
 spec:
   chart:
     spec:
-      version: "0.4.8"
+      version: "~0.4.0-0"
   values:
     image:
       repository: "k3d-registry:5000/enableops/api"
       tag: "latest"
+
+    additionalContainers:
+      - name: litestream
+        image: "k3d-registry:5000/fork/litestream:latest"
+        args: ["replicate"]
+        volumeMounts:
+          - name: data
+            mountPath: /usr/src/app/.data
+          - name: config
+            mountPath: /etc/litestream.yml
+            subPath: litestream.yml
+        env:
+          - name: LITESTREAM_ACCESS_KEY_ID
+            valueFrom:
+              secretKeyRef:
+                name: litestream
+                key: LITESTREAM_ACCESS_KEY_ID
+          - name: LITESTREAM_SECRET_ACCESS_KEY
+            valueFrom:
+              secretKeyRef:
+                name: litestream
+                key: LITESTREAM_SECRET_ACCESS_KEY
+        ports:
+          - name: metrics
+            containerPort: 9090
 
     initContainers:
       - name: init-litestream
@@ -74,7 +99,7 @@ spec:
         dbs:
           - path: /usr/src/app/.data/api.db
             replicas:
-              - url: s3://api.minio.localhost:9000/api.db
+              - url: s3://api.minio.minio.svc.cluster.local:9000/api.db
 
     vault:
       app:
