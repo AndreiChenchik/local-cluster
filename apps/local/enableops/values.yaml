@@ -14,7 +14,12 @@ spec:
     initContainers:
       - name: init-litestream
         image: "k3d-registry:5000/fork/litestream:latest"
-        args: ['restore', '-if-db-not-exists', '-if-replica-exists', '-v', '/usr/src/app/.data/api.db']
+        args:
+          - "restore"
+          - "-if-db-not-exists"
+          - "-if-replica-exists"
+          - "-v"
+          - "/usr/src/app/.data/api.db"
         volumeMounts:
           - name: data
             mountPath: /usr/src/app/.data
@@ -32,32 +37,7 @@ spec:
               secretKeyRef:
                 name: litestream
                 key: LITESTREAM_SECRET_ACCESS_KEY
-    
-    additionalContainers:
-      - name: litestream
-        image: "k3d-registry:5000/fork/litestream:latest"
-        args: ['replicate']
-        volumeMounts:
-        - name: data
-          mountPath: /usr/src/app/.data
-        - name: config
-          mountPath: /etc/litestream.yml
-          subPath: litestream.yml
-        env:
-        - name: LITESTREAM_ACCESS_KEY_ID
-          valueFrom:
-            secretKeyRef:
-              name: litestream
-              key: LITESTREAM_ACCESS_KEY_ID
-        - name: LITESTREAM_SECRET_ACCESS_KEY
-          valueFrom:
-            secretKeyRef:
-              name: litestream
-              key: LITESTREAM_SECRET_ACCESS_KEY
-        ports:
-        - name: metrics
-          containerPort: 9090
-    
+
     ingressHost: eops-api.chenchik.me
     ingressEntryPoint: web
 
