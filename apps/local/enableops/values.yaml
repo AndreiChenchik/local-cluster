@@ -13,7 +13,7 @@ spec:
 
     initContainers:
       - name: init-litestream
-        image: "k3d-registry:5000/fork/litestream"
+        image: "k3d-registry:5000/fork/litestream:latest"
         args: ['restore', '-if-db-not-exists', '-if-replica-exists', '-v', '/usr/src/app/.data/api.db']
         volumeMounts:
           - name: data
@@ -35,7 +35,7 @@ spec:
     
     additionalContainers:
       - name: litestream
-        image: "k3d-registry:5000/fork/litestream"
+        image: "k3d-registry:5000/fork/litestream:latest"
         args: ['replicate']
         volumeMounts:
         - name: data
