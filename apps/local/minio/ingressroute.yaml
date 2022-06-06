@@ -9,5 +9,5 @@ spec:
     - kind: Rule
       match: Host(`minio.chenchik.me`)
       services:
-        - name: minio
+        - name: minio-console
           port: 9001
