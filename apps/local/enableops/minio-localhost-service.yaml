@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: localhost
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: minio
+  namespace: localhost
+spec:
+  type: ExternalName
+  externalName: minio.minio.svc.cluster.local
