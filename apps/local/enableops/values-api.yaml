@@ -14,12 +14,7 @@ spec:
     initContainers:
       - name: init-litestream
         image: litestream/litestream:0.3.8
-        args:
-          - "restore"
-          - "-if-db-not-exists"
-          - "-if-replica-exists"
-          - "-v"
-          - "/usr/src/app/.data/api.db"
+        args: ['restore', '-if-db-not-exists', '-if-replica-exists', '-v', '/usr/src/app/.data/api.db']
         volumeMounts:
           - name: data
             mountPath: /usr/src/app/.data
