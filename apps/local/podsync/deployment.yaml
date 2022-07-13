@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: podsync
+  labels:
+    app: podsync
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: podsync
+  template:
+    metadata:
+      labels:
+        app: podsync
+    spec:
+      containers:
+        - name: podsync
+          image: "k3d-registry:5000/andreichenchik/podsync:latest"
+          volumeMounts:
+            - name: config-volume
+              mountPath: /etc/config.toml
+              subPath: config.toml
+          env:
+            - name: AWS_ACCESS_KEY_ID
+              valueFrom:
+                secretKeyRef:
+                  name: s3-conf
+                  key: AWS_ACCESS_KEY_ID
+                  optional: false
+            - name: AWS_SECRET_ACCESS_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: s3-conf
+                  key: AWS_SECRET_ACCESS_KEY
+                  optional: false
+      volumes:
+        - name: config-volume
+          configMap:
+            name: config
