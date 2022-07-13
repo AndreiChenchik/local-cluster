@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: toogoodtogo
+  labels:
+    app: toogoodtogo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: toogoodtogo
+  template:
+    metadata:
+      labels:
+        app: toogoodtogo
+    spec:
+      containers:
+        - name: toogoodtogo
+          image: "marklagendijk/toogoodtogo-watcher:latest"
+          volumeMounts:
+            - name: config-volume
+              mountPath: /home/node/.config/toogoodtogo-watcher-nodejs/config.json
+              subPath: config.json
+      volumes:
+        - name: config-volume
+          configMap:
+            name: config

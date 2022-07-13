@@ -1,0 +1,67 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: config
+data:
+  config.json: |-
+    {
+      "api": {
+        "credentials": {
+          "email": ""
+        },
+        "session": {
+          "userId": "",
+          "accessToken": "",
+          "refreshToken": ""
+        },
+        "deviceType": "IOS",
+        "headers": {},
+        "pollingIntervalInMs": 30000,
+        "authenticationIntervalInMS": 3600000
+      },
+      "notifications": {
+        "telegram": {
+          "enabled": true,
+          "botToken": "",
+          "chats": [
+            {
+              "id": ,
+              "firstName": "",
+              "lastName": ""
+            },
+            {
+              "id": ,
+              "firstName": "",
+              "lastName": ""
+            }
+          ]
+        },
+        "console": {
+          "enabled": false,
+          "clear": true
+        },
+        "desktop": {
+          "enabled": false
+        },
+        "ifttt": {
+          "enabled": false,
+          "webhookKey": "see README",
+          "webhookEvents": [
+            "see README"
+          ]
+        },
+        "gotify": {
+          "enabled": false,
+          "url": "http://push.example.com",
+          "apptoken": "token",
+          "priority": 5
+        }
+      },
+      "messageFilter": {
+        "showUnchanged": false,
+        "showDecrease": false,
+        "showDecreaseToZero": true,
+        "showIncrease": false,
+        "showIncreaseFromZero": true
+      }
+    }
