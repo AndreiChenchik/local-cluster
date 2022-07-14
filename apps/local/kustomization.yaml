@@ -4,5 +4,3 @@ resources:
   - enableops
   - vault
   - minio
-  - podsync
-  - toogoodtogo
